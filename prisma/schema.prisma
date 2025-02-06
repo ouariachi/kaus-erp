@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  email         String    @unique
+  firstname     String
+  lastname      String
+  password      String
+  emailVerified Boolean   @default(false)
+  twoFASecret   String?
+  twoFAEnabled  Boolean   @default(false)
+  failedLogins  Int       @default(0)
+  lastLogin     DateTime?
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  emailVerificationToken EmailVerificationToken[]
+}
+
+model EmailVerificationToken {
+  id          Int      @id @default(autoincrement())
+  token       String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  lastSent    DateTime @default(now())
+  resendCount Int      @default(0)
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id])
+}
+
+enum UserRole {
+  SUPERADMIN
+  ADMIN
+  CLIENT
+  USER
+}
+
+// Table for express-session middleware
+model session {
+  sid    String   @id @db.VarChar
+  sess   Json     @db.Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire], map: "IDX_session_expire")
+}

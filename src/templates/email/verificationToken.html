@@ -1,0 +1,86 @@
+<body>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: transparent;
+      padding: 0;
+      margin: 0;
+    }
+
+    #brand {
+      padding: 10px;
+      border-radius: 8px 8px 0 0;
+      font-size: 30px;
+      text-align: center;
+      font-weight: 900;
+    }
+    
+    #title {
+      padding: 10px;
+      background-color: #fff;
+      text-align: center;
+      background-color: #007bff;
+      color: white;
+      
+      p:nth-child(1) {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      
+      p:nth-child(2) {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        margin-top: 0;
+      }
+    }
+
+    #content {
+      text-align: center;
+
+      p:nth-child(1) {
+        font-size: 16px;
+        margin-bottom: 0;
+        font-weight: bold;
+      }
+
+      p:nth-child(2) {
+        font-size: 15px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-weight: 600;
+        text-wrap: balance;
+      }
+
+      a {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+  </style>
+
+  <main>
+    <div id="brand">
+      KAUS ERP
+    </div>
+
+    <div id="title">
+      <p>Thank you for signing up!</p>
+      <p>Verify Your E-mail Address</p>
+    </div>
+
+    <div id="content">
+      <p>Hi, {{name}}</p>
+      <p>You're almost done! Please verify your email address by clicking the button below.</p>
+      <a href="{{link}}">Verify Email</a>
+    </div>
+  </main>
+</body>
