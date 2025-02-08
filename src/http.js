@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { sessionMiddleware } from "#src/middlewares/session";
-import authRouter from "./modules/auth/routes.js";
+import authRouter from "./core/auth/routes.js";
 import path from "path";
 
 const PORT = process.env.PORT || 3000;

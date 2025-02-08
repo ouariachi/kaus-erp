@@ -1,5 +1,5 @@
-import { deleteEmailVerificationToken, getEmailVerificationToken, updateEmailVerificationToken } from "../models/emailVerificationToken.js";
-import { getUserByEmail, updateUser } from "../models/user.js";
+import { deleteEmailVerificationToken, getEmailVerificationToken, updateEmailVerificationToken } from "#src/models/emailVerificationToken";
+import { getUserByEmail, updateUser } from "#src/models/user";
 import { sendEmailVerificationToken } from "../services/email.js";
 
 const HOUR = 60 * 60 * 1000; // 1 hour

@@ -1,4 +1,4 @@
-import { createUser, getUserByEmail } from "../models/user.js";
+import { createUser, getUserByEmail } from "#src/models/user";
 import { sendEmailVerificationToken } from "../services/email.js";
 import { hashPassword } from "../utils/password.js";
 

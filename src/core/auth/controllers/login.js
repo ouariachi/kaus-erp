@@ -1,4 +1,4 @@
-import { getUserByEmail, updateUser } from "../models/user.js";
+import { getUserByEmail, updateUser } from "#src/models/user";
 import { verify2FASecret } from "../utils/2FA.js";
 import { verifyPassword } from "../utils/password.js";
 
