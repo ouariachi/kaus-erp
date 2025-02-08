@@ -7,6 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Table for express-session middleware
+model session {
+  sid    String   @id @db.VarChar
+  sess   Json     @db.Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire], map: "IDX_session_expire")
+}
+
+// AUTHENTICATION MODULE
 model User {
   id            Int       @id @default(autoincrement())
   email         String    @unique
@@ -42,13 +52,4 @@ enum UserRole {
   ADMIN
   CLIENT
   USER
-}
-
-// Table for express-session middleware
-model session {
-  sid    String   @id @db.VarChar
-  sess   Json     @db.Json
-  expire DateTime @db.Timestamp(6)
-
-  @@index([expire], map: "IDX_session_expire")
 }
