@@ -9,7 +9,7 @@ export async function enable2FA(req, res) {
   const user = await getUserById(userid);
   if (!user) {
     req.session.destroy();
-    return res.status(404).json({ message: "User not found" });
+    return res.status(404).json({ message: "Resource not found" });
   }
 
   const password = req.validatedData.password;
@@ -20,7 +20,6 @@ export async function enable2FA(req, res) {
   let twoFASecret = {};
   if (!user.twoFASecret) {
     twoFASecret = generate2FASecret(user.email);
-    console.log(twoFASecret)
     try {
       await updateUser(userid, { twoFASecret: twoFASecret.base32 });
     } catch (err) {
