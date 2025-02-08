@@ -18,7 +18,7 @@ app.use(cors({
 
 // routes
 app.use("/", express.static(path.join(process.cwd(), "src/public")));
-app.use("/auth", authRouter);
+app.use("/api/auth", authRouter);
 app.get("/api", (_, res) => {
   res.json({ status: "ok" });
 });
