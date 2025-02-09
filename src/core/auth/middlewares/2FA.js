@@ -1,5 +1,5 @@
 import { confirm2FASchema, disable2FASchema, enable2FASchema } from "../schemas/2FASchema.js";
-import { getZodErrors } from "../utils/error.js";
+import { getZodErrors } from "#src/utils/error";
 
 export async function enable2FAMiddleware(req, res, next) {
   const enable2FASchemaResult = enable2FASchema.safeParse(req.body);

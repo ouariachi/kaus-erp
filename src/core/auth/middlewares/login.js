@@ -1,5 +1,5 @@
 import { loginSchema } from "../schemas/loginSchema.js";
-import { getZodErrors } from "../utils/error.js";
+import { getZodErrors } from "#src/utils/error";
 
 export async function loginMiddleware(req, res, next) {
   if (req.body.code) {

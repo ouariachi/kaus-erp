@@ -1,5 +1,5 @@
 import { registerSchema } from "../schemas/registerSchema.js";
-import { getZodErrors } from "../utils/error.js";
+import { getZodErrors } from "#src/utils/error";
 
 export async function registerMiddleware(req, res, next) {
   const registerSchemaResult = registerSchema.safeParse(req.body);
