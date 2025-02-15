@@ -35,6 +35,6 @@ To maintain a clean and consistent commit history, we follow the **Conventional 
 ## ⚙️ How to Use
 
 1. **Pick the right type**: Choose the correct type (e.g., `feat`, `fix`, `docs`) that represents the purpose of your commit.
-2. **Add a short description**: After the type, provide a short, clear description of what the commit does. Avoid using the imperative mood (e.g., "Add" instead of "Added").
+2. **Add a short description**: After the type, provide a short, clear description of what the commit does. Use the imperative mood (e.g., "Add" instead of "Added").
 3. **Optional body**: If needed, you can add more detailed information about the commit in the body (e.g., why a change was made or how to test it).
 4. **Add emojis**: For visual clarity, use the corresponding emoji at the start of the message.
