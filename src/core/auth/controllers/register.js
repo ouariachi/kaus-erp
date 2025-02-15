@@ -1,12 +1,13 @@
 import { createUser, getUserByEmail } from "#src/models/user";
 import { sendEmailVerificationToken } from "../services/email.js";
 import { hashPassword } from "../utils/password.js";
+import { emailRegistrationNotAllowed } from "../utils/register.js";
 
 export async function register(req, res) {
   const { email, password, firstname, lastname } = req.validatedData;
   
   if(await getUserByEmail(email)) {
-    return res.status(400).json({ message: "Email already exists" });
+    return emailRegistrationNotAllowed(res);
   }
   
   try {
