@@ -16,11 +16,11 @@ export async function emailVerification(req, res) {
     return res.status(400).json({ message: "Invalid token" });
   }
   
-  if (emailVerificationToken.user.emailVerified) {
+  if (emailVerificationToken.User.emailVerified) {
     return res.status(400).json({ message: "Email already verified" });
   }
 
-  if (emailVerificationToken.user.email !== email) {
+  if (emailVerificationToken.User.email !== email) {
     return res.status(400).json({ message: "Invalid email" });
   }
 
@@ -28,7 +28,7 @@ export async function emailVerification(req, res) {
     return res.status(400).json({ message: "Token expired" });
   }
 
-  await updateUser(emailVerificationToken.user.id, {
+  await updateUser(emailVerificationToken.User.id, {
     emailVerified: true,
   });
 

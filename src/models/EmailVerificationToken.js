@@ -4,14 +4,14 @@ export async function createEmailVerificationToken(email, token) {
   return await prisma.emailVerificationToken.create({
     data: {
       token,
-      user: {
+      User: {
         connect: {
           email,
         },
       },
     },
     include: {
-      user: true,
+      User: true,
     },
   });
 }
@@ -22,7 +22,7 @@ export async function getEmailVerificationToken(token) {
       token,
     },
     include: {
-      user: true,
+      User: true,
     },
   });
 }
@@ -34,7 +34,7 @@ export async function updateEmailVerificationToken(token, data) {
     },
     data,
     include: {
-      user: true,
+      User: true,
     },
   });
 }
@@ -45,7 +45,7 @@ export async function deleteEmailVerificationToken(token) {
       token,
     },
     include: {
-      user: true,
+      User: true,
     },
   });
 }
