@@ -12,6 +12,8 @@ export const sessionStore = new (connectPgSimple(session))({
   pool,
 });
 
+sessionStore.pruneSessions();
+
 export const sessionMiddleware = session({
   secret: process.env.EXPRESS_SESSION_SECRET,
   resave: false,
