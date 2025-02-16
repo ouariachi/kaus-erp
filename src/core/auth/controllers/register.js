@@ -1,7 +1,7 @@
 import { createUser, getUserByEmail } from "#src/models/user";
-import { sendEmailVerificationToken } from "../services/email.js";
-import { hashPassword } from "../utils/password.js";
-import { emailRegistrationNotAllowed } from "../utils/register.js";
+import { sendEmailVerificationToken } from "#src/services/auth/email";
+import { hashPassword } from "#src/utils/auth/password";
+import { emailRegistrationNotAllowed } from "#src/utils/auth/register";
 
 export async function register(req, res) {
   const { email, password, firstname, lastname } = req.validatedData;

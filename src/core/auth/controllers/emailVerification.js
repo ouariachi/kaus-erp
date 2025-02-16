@@ -1,6 +1,6 @@
 import { deleteEmailVerificationToken, getEmailVerificationToken, updateEmailVerificationToken } from "#src/models/emailVerificationToken";
 import { getUserByEmail, updateUser } from "#src/models/user";
-import { sendEmailVerificationToken } from "../services/email.js";
+import { sendEmailVerificationToken } from "#src/services/auth/email";
 
 const HOUR = 60 * 60 * 1000; // 1 hour
 const EXPIRATION_TIME = 24 * HOUR;

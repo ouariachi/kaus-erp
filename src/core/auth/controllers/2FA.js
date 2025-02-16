@@ -1,6 +1,6 @@
 import { getUserById, updateUser } from "#src/models/user";
-import { verifyPassword } from "../utils/password.js";
-import { generate2FASecret, verify2FASecret } from "../utils/2FA.js";
+import { verifyPassword } from "#src/utils/auth/password";
+import { generate2FASecret, verify2FASecret } from "#src/utils/auth/2FA";
 import speakeasy from "speakeasy";
 
 /** @type {import('express').RequestHandler} */

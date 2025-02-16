@@ -1,6 +1,6 @@
 import { getUserByEmail, updateUser } from "#src/models/user";
-import { verify2FASecret } from "../utils/2FA.js";
-import { verifyPassword } from "../utils/password.js";
+import { verify2FASecret } from "#src/utils/auth/2FA";
+import { verifyPassword } from "#src/utils/auth/password";
 
 const LOGIN_ATTEMPTS = 5;
 const LOGIN_TIMEOUT = 60 * 60 * 1000; // 1 hour
