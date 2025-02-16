@@ -16,6 +16,7 @@ To maintain a clean and consistent commit history, we follow the **Conventional 
 | **ci**       | 🤖 (`:robot:`)                 | Changes related to Continuous Integration/Continuous Delivery. |
 | **build**    | 🏗 (`:building_construction:`) | Changes that affect the build system.                          |
 | **revert**   | ⏪ (`:rewind:`)                | Reverts a previous commit.                                     |
+| **security** | 🛡️ (`:shield:`)                | Fixes security vulnerabilities in the code.
 
 ## 📌 Examples:
 | Type         | Example                                                       |
@@ -23,14 +24,7 @@ To maintain a clean and consistent commit history, we follow the **Conventional 
 | **feat**     | `✨ feat(auth): add JWT authentication support`                |
 | **fix**      | `🐛 fix(cart): fix checkout button not working on mobile`      |
 | **docs**     | `📚 docs(readme): update installation instructions`            |
-| **style**    | `🎨 style(css): fix button alignment`                          |
-| **refactor** | `🔨 refactor(api): simplify response handler logic`            |
-| **test**     | `✅ test(auth): add unit tests for login function`             |
-| **perf**     | `🚀 perf(images): optimize image loading for faster page load` |
-| **chore**    | `🔧 chore(deps): update axios to v0.27.2`                      |
-| **ci**       | `🤖 ci(travis): update node version in CI config`              |
-| **build**    | `🏗 build(webpack): update build configuration`                |
-| **revert**   | `⏪ revert: revert "add feature X" due to bugs`                |
+
 
 ## ⚙️ How to Use
 
