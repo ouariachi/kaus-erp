@@ -1,7 +1,7 @@
 import { registerSchema } from "../schemas/registerSchema.js";
 import { getZodErrors } from "#src/utils/error";
 import { getBusinessByAllowedDomains, getBusinessByAllowedEmails } from "#src/services/business/validate";
-import { emailRegistrationNotAllowed } from "#src/utils/auth/register";
+import { respondWithEmailRegistrationFailure } from "#src/utils/auth/register";
 
 export async function validateRegistrationDataMiddleware(req, res, next) {
   const registerSchemaResult = registerSchema.safeParse(req.body);
@@ -27,7 +27,7 @@ export async function validateAllowedEmailMiddleware(req, res, next) {
     return next();
   }
   
-  return emailRegistrationNotAllowed(res);
+  return respondWithEmailRegistrationFailure(res);
 }
 
 
