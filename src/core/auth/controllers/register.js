@@ -17,7 +17,7 @@ export async function register(req, res) {
       firstname,
       lastname,
     });
-    await sendEmailVerificationToken(user.email);
+    await sendEmailVerificationToken(user.email, user.firstname);
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: "Internal server error" });

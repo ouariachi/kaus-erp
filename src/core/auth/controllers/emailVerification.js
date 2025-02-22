@@ -55,7 +55,7 @@ export async function resendEmailVerification(req, res) {
   }
 
   if (user.emailVerificationToken.length === 0) {
-    await sendEmailVerificationToken(user.email);
+    await sendEmailVerificationToken(user.email, user.firstname);
     return res.status(200).json({ message: "Email verification token sent successfully" });
   }
 
@@ -63,7 +63,7 @@ export async function resendEmailVerification(req, res) {
 
   if (token.createdAt.getTime() + EXPIRATION_TIME < Date.now()) {
     await deleteEmailVerificationToken(token.token);
-    await sendEmailVerificationToken(user.email);
+    await sendEmailVerificationToken(user.email, user.firstname);
     return res.status(200).json({ message: "Email verification token sent successfully" });
   } 
   
@@ -84,6 +84,6 @@ export async function resendEmailVerification(req, res) {
     },
   });
 
-  await sendEmailVerificationToken(user.email, token.token);
+  await sendEmailVerificationToken(user.email, user.firstname, token.token);
   return res.status(200).json({ message: "Email verification token resent successfully" });
 }

@@ -3,7 +3,7 @@ import { getTemplate } from "#src/templates/getTemplate";
 import { createEmailVerificationToken } from "#src/models/emailVerificationToken";
 import { generateEmailVerificationToken } from "#src/utils/auth/emailVerificationToken";
 
-export async function sendEmailVerificationToken(email, token = undefined) {
+export async function sendEmailVerificationToken(email, name, token = undefined) {
   if (!token) {
     token = generateEmailVerificationToken();
     const result = await createEmailVerificationToken(email, token);
@@ -14,7 +14,7 @@ export async function sendEmailVerificationToken(email, token = undefined) {
   }
 
   const template = getTemplate("email/verificationToken", {
-    name: "Admin",
+    name,
     link: `${process.env.SERVER_URL}/auth/email-verification?token=${token}&email=${email}`,
   })
 
