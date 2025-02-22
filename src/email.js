@@ -1,9 +1,9 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  host: "erp.local",
-  port: 25,
-  secure: false,
+  host: process.env.EMAIL_DOMAIN,
+  port: process.env.EMAIL_PORT,
+  secure: process.env.EMAIL_SECURE === "true",
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
