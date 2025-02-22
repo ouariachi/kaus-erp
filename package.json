@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node .",
-    "dev": "nodemon .",
+    "dev": "nodemon --ignore ./test/ .",
     "test": "vitest"
   },
   "keywords": [],
@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "eslint": "^9.20.1",
     "nodemon": "^3.1.9",
     "prisma": "^6.3.0",
