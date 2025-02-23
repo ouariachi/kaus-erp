@@ -10,8 +10,6 @@ const data = {
   password: "vitest1234",
 }
 
-let SESSION_COOKIE = "";
-
 await (async () => {
   const user = await prisma.user.findUnique({
     where: {
