@@ -8,7 +8,7 @@ const pool = new pg.Pool({
 
 export const sessionStore = new (connectPgSimple(session))({ 
   createTableIfMissing: true,
-  pruneSessionInterval: 60 * 60,
+  pruneSessionInterval: 60 * 60 * 12,
   pool,
 });
 
