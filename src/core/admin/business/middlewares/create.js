@@ -41,7 +41,7 @@ export async function createValidationDataMiddleware(req, res, next) {
 /** @type {import("express").RequestHandler}  */
 export async function createUniqueMiddleware(req, res, next) {
   if(await businessExists(req.validatedData)) {
-    return res.status(400).json({ message: 'Business already exists' });
+    return res.status(409).json({ message: 'Business already exists' });
   }
 
   next();
