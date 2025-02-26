@@ -4,10 +4,10 @@ export async function businessExists(data) {
   const business = await getBusinessWhere(
     { 
       OR: [
-        { name: data.name },
-        { nif: data.nif },
-        { phone: data.phone },
-        { email: data.email },
+        { name: { contains: data.name, mode: "insensitive" } },
+        { nif: { contains: data.nif, mode: "insensitive" } },
+        { phone: { contains: data.phone, mode: "insensitive" } },
+        { email: { contains: data.email, mode: "insensitive" } },
       ]
     },
     {
