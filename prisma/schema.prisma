@@ -16,7 +16,6 @@ model session {
   @@index([expire], map: "IDX_session_expire")
 }
 
-// AUTHENTICATION MODULE
 model User {
   id            Int       @id @default(autoincrement())
   email         String    @unique
@@ -32,7 +31,15 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  emailVerificationToken EmailVerificationToken[]
+  EmailVerificationToken EmailVerificationToken[]
+  Businesses             BusinessUser[]
+}
+
+enum UserRole {
+  SUPERADMIN
+  ADMIN
+  CLIENT
+  USER
 }
 
 model EmailVerificationToken {
@@ -44,12 +51,85 @@ model EmailVerificationToken {
   resendCount Int      @default(0)
 
   userId Int  @unique
-  user   User @relation(fields: [userId], references: [id])
+  User   User @relation(fields: [userId], references: [id])
 }
 
-enum UserRole {
-  SUPERADMIN
+// Enum to store the modules that a business can have
+enum Modules {
+  CRM
+}
+
+model Business {
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  nif           String        @unique
+  phone         String        @unique
+  email         String        @unique
+  emailDomains  String[] // Domains that are allowed to register
+  allowedEmails String[] // Emails that are allowed to register without domain validation
+  status        BusinessSatus @default(ACTIVE)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  address  String?
+  city     String?
+  state    String?
+  zipCode  String?
+  country  String?
+  
+  industry String?
+  website  String?
+  logo     String?
+
+  Modules       Modules[]
+  BusinessUsers BusinessUser[]
+}
+
+// Table to store the users that are part of a business
+model BusinessUser {
+  id        Int                @id @default(autoincrement())
+  role      BusinessUserRole   @default(USER) // Default role for a user in a business
+  status    BusinessUserStatus @default(PENDING)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
+  businessId Int
+  Business   Business             @relation(fields: [businessId], references: [id])
+  userId     Int
+  User       User                 @relation(fields: [userId], references: [id])
+  Modules    BusinessUserModule[]
+}
+
+// Table to store the modules that a user has access to
+model BusinessUserModule {
+  id        Int              @id @default(autoincrement())
+  role      BusinessUserRole @default(USER) // Default role for a user in a module
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  businessUserId Int
+  BusinessUser   BusinessUser @relation(fields: [businessUserId], references: [id])
+  Module         Modules
+
+  @@unique([businessUserId, Module])
+}
+
+enum BusinessSatus {
+  ACTIVE
+  INACTIVE
+  TRIAL
+}
+
+enum BusinessUserRole {
+  OWNER
   ADMIN
-  CLIENT
   USER
+}
+
+enum BusinessUserStatus {
+  PENDING
+  REJECTED
+  ACTIVE
+  INACTIVE
+  BANNED
 }

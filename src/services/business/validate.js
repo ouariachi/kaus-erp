@@ -1,0 +1,36 @@
+import { getBusinessWhere } from "#src/models/Business";
+
+export async function businessExists(data) {
+  const business = await getBusinessWhere(
+    { 
+      OR: [
+        { name: data.name },
+        { nif: data.nif },
+        { phone: data.phone },
+        { email: data.email },
+      ]
+    },
+    {
+      BusinessUsers: false
+    }
+  );
+  console.log(business);
+  return !!business;
+}
+
+export async function getBusinessByAllowedDomains(...domains) {
+  const normalizedDomains = domains.flat().map((d) => d.toLowerCase());
+  return await getBusinessWhere({ 
+    emailDomains: {
+      hasSome: normalizedDomains
+    } 
+  });
+}
+
+export async function getBusinessByAllowedEmails(...emails) {
+  return await getBusinessWhere({
+    allowedEmails: {
+      hasSome: emails.flat()
+    }
+  });
+}
