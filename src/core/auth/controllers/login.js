@@ -1,6 +1,7 @@
 import { getUserByEmail, updateUser } from "#src/models/user";
 import { verify2FASecret } from "#src/utils/auth/2FA";
 import { verifyPassword } from "#src/utils/auth/password";
+import { respondWithEmailLoginFailure } from "#src/utils/auth/login";
 
 const LOGIN_ATTEMPTS = 5;
 const LOGIN_TIMEOUT = 60 * 60 * 1000; // 1 hour
@@ -13,7 +14,7 @@ export async function login(req, res) {
 
   const user = await getUserByEmail(email);
   if (!user) {
-    return res.status(401).json({ message: "Invalid email or password" });
+    return respondWithEmailLoginFailure(res);
   }
 
   if (user.failedLogins >= LOGIN_ATTEMPTS) {
@@ -42,7 +43,7 @@ export async function login(req, res) {
       return res.status(500).json({ message: "Internal server error" });
     }
 
-    return res.status(401).json({ message: "Invalid email or password", remainingAttempts: LOGIN_ATTEMPTS - user.failedLogins });
+    return respondWithEmailLoginFailure(res, LOGIN_ATTEMPTS - user.failedLogins);
   }
 
   if (user.emailVerified === false) {
