@@ -4,6 +4,6 @@ import { resolve } from 'path';
 export default defineConfig({
   test: {
     globals: true,
-    setupFiles: ['dotenv/config'] //this line,
+    setupFiles: ['dotenv/config']
   },
 });
