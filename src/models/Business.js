@@ -47,6 +47,40 @@ export async function getBusinessWhere(where, include) {
 }
 
 /**
+ * @param {Prisma.BusinessWhereInput} [where]
+ * @param {Prisma.BusinessInclude | undefined} include
+ * @param {Prisma.BusinessOrderByWithRelationInput | undefined} orderBy
+ * @param {number} [page=1]
+ * @param {number} [limit=10]
+ */
+export async function getBusinesses({where, include, orderBy, page = 1, limit = 10}) {
+  limit = Math.max(limit, 1);
+  const total = await prisma.business.count();
+  const totalPages = Math.ceil(total / limit);
+  page = Math.min(page, totalPages);
+
+  const business = await prisma.business.findMany({
+    where,
+    include: include || DEFAULT_INCLUDE,
+    skip: (page - 1) * limit,
+    take: limit,
+    orderBy: orderBy || { createdAt: "desc" },
+  });
+
+  return {
+    business,
+    pagination: {
+      total,
+      limit,
+      page,
+      totalPages,
+      nextPage: page < totalPages ? page + 1 : null,
+      prevPage: page > 1 ? page - 1 : null,
+    }
+  }
+}
+
+/**
  * @param {number} id
  * @param {Prisma.BusinessUpdateInput} data
  * @param {Prisma.BusinessInclude | undefined} include 
