@@ -39,8 +39,7 @@ export async function login(req, res) {
       user.failedLogins = updated.failedLogins;
       user.lastLogin = updated.lastLogin;
     } catch (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ message: "Internal server error", error: err.message });
     }
 
     return respondWithEmailLoginFailure(res, LOGIN_ATTEMPTS - user.failedLogins);
@@ -69,8 +68,7 @@ export async function login(req, res) {
   try {
     await updateUser(user.id, { failedLogins: 0, lastLogin: new Date() });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error", error: err.message });
   }
 
   return res.status(200).json({ message: "Loged in successfully" });

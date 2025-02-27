@@ -24,7 +24,7 @@ export async function enable2FA(req, res) {
       await updateUser(userid, { twoFASecret: twoFASecret.base32 });
     } catch (err) {
       console.error(err);
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ message: "Internal server error", error: err.message });
     }
   } else {
     twoFASecret.base32 = user.twoFASecret;
@@ -74,7 +74,7 @@ export async function confirm2FA(req, res) {
     await updateUser(userid, { twoFAEnabled: true });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error", error: err.message });
   }
 
   return res.status(200).json({ message: "2FA enabled successfully" });
@@ -107,7 +107,7 @@ export async function disable2FA(req, res) {
   try {
     await updateUser(userid, { twoFAEnabled: false, twoFASecret: null });
   } catch (err) {
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error", error: err.message });
   }
 
   return res.status(200).json({ message: "2FA disabled successfully" });

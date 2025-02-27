@@ -16,8 +16,7 @@ export async function create(req, res) {
       return res.status(500).json({ message: 'Error creating business' });
     }
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: 'Error creating business' });
+    return res.status(500).json({ message: 'Error creating business', error: error.message });
   }
 
   res.status(201).json({ message: 'Business created' });

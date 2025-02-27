@@ -20,8 +20,7 @@ export async function register(req, res) {
       lastname,
     });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error", error: err.message });
   }
   
   try {
@@ -37,7 +36,7 @@ export async function register(req, res) {
         return res.status(errorMessage.httpCode).json({ message: errorMessage.message });
       }
     }
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error", error: err.message });
   }
   
   return res.status(201).json({ message: "User created successfully" });
