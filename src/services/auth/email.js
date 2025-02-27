@@ -18,7 +18,7 @@ export async function sendEmailVerificationToken(email, name, token = undefined)
     link: `${process.env.SERVER_URL}/auth/email-verification?token=${token}&email=${email}`,
   })
 
-  await sendEmail({
+  return await sendEmail({
     to: email,
     subject: "ERP Email Verification",
     html: template,
