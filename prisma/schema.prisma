@@ -51,7 +51,7 @@ model EmailVerificationToken {
   resendCount Int      @default(0)
 
   userId Int  @unique
-  User   User @relation(fields: [userId], references: [id])
+  User   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Enum to store the modules that a business can have
@@ -94,9 +94,9 @@ model BusinessUser {
   updatedAt DateTime           @updatedAt
 
   businessId Int
-  Business   Business             @relation(fields: [businessId], references: [id])
+  Business   Business             @relation(fields: [businessId], references: [id], onDelete: Cascade)
   userId     Int
-  User       User                 @relation(fields: [userId], references: [id])
+  User       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   Modules    BusinessUserModule[]
 }
 
@@ -108,7 +108,7 @@ model BusinessUserModule {
   updatedAt DateTime         @updatedAt
 
   businessUserId Int
-  BusinessUser   BusinessUser @relation(fields: [businessUserId], references: [id])
+  BusinessUser   BusinessUser @relation(fields: [businessUserId], references: [id], onDelete: Cascade)
   Module         Modules
 
   @@unique([businessUserId, Module])
