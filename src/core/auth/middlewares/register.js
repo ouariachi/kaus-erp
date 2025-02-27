@@ -15,6 +15,7 @@ export async function validateRegistrationDataMiddleware(req, res, next) {
 }
 
 export async function validateAllowedEmailMiddleware(req, res, next) {
+  /** @type {string} */
   const email = req.validatedData.email;
   const domain = email.split("@")[1].toLowerCase();
   
@@ -23,11 +24,9 @@ export async function validateAllowedEmailMiddleware(req, res, next) {
     getBusinessByAllowedEmails(email),
   ]);
 
-  if (businessByDomain || businessByEmail || domain === process.env.EMAIL_DOMAIN) {
-    return next();
+  if (!businessByDomain && !businessByEmail && !domain.endsWith(process.env.EMAIL_DOMAIN)) { 
+    return respondWithEmailRegistrationFailure(res);
   }
   
-  return respondWithEmailRegistrationFailure(res);
+  return next();
 }
-
-
