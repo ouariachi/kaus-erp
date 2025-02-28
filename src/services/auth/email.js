@@ -1,6 +1,6 @@
 import { sendEmail } from "#src/email";
 import { getTemplate } from "#src/templates/getTemplate";
-import { createEmailVerificationToken } from "#src/models/emailVerificationToken";
+import { createEmailVerificationToken } from "#src/models/EmailVerificationToken";
 import { generateEmailVerificationToken } from "#src/utils/auth/emailVerificationToken";
 
 export async function sendEmailVerificationToken(email, name, token = undefined) {

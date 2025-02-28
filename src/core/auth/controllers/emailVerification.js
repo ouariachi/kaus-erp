@@ -1,4 +1,4 @@
-import { deleteEmailVerificationToken, getEmailVerificationToken, updateEmailVerificationToken } from "#src/models/emailVerificationToken";
+import { deleteEmailVerificationToken, getEmailVerificationToken, updateEmailVerificationToken } from "#src/models/EmailVerificationToken";
 import { getUserByEmail, updateUser } from "#src/models/User";
 import { sendEmailVerificationToken } from "#src/services/auth/email";
 
