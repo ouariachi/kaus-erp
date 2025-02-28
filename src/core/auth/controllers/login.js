@@ -1,4 +1,4 @@
-import { getUserByEmail, updateUser } from "#src/models/user";
+import { getUserByEmail, updateUser } from "#src/models/User";
 import { verify2FASecret } from "#src/utils/auth/2FA";
 import { verifyPassword } from "#src/utils/auth/password";
 import { respondWithEmailLoginFailure } from "#src/utils/auth/login";

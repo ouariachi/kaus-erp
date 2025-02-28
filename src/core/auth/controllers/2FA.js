@@ -1,4 +1,4 @@
-import { getUserById, updateUser } from "#src/models/user";
+import { getUserById, updateUser } from "#src/models/User";
 import { verifyPassword } from "#src/utils/auth/password";
 import { generate2FASecret, verify2FASecret } from "#src/utils/auth/2FA";
 import speakeasy from "speakeasy";

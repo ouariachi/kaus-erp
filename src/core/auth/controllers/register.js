@@ -1,4 +1,4 @@
-import { createUser, deleteUser, getUserByEmail } from "#src/models/user";
+import { createUser, deleteUser, getUserByEmail } from "#src/models/User";
 import { sendEmailVerificationToken } from "#src/services/auth/email";
 import { hashPassword } from "#src/utils/auth/password";
 import { respondWithEmailRegistrationFailure } from "#src/utils/auth/register";
