@@ -59,6 +59,20 @@ export async function getBusinesses({where, include, orderBy, page = 1, limit = 
   const totalPages = Math.ceil(total / limit);
   page = Math.min(page, totalPages);
 
+  if (total === 0) {
+    return {
+      business: [],
+      pagination: {
+        total,
+        limit,
+        page,
+        totalPages,
+        nextPage: null,
+        prevPage: null,
+      }
+    }
+  }
+
   const business = await prisma.business.findMany({
     where,
     include: include || DEFAULT_INCLUDE,
