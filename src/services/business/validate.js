@@ -14,7 +14,6 @@ export async function businessExists(data) {
       BusinessUsers: false
     }
   );
-  console.log(business);
   return !!business;
 }
 
