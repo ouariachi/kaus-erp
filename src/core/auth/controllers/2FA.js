@@ -2,6 +2,7 @@ import { getUserById, updateUser } from "#src/models/User";
 import { verifyPassword } from "#src/utils/auth/password";
 import { generate2FASecret, verify2FASecret } from "#src/utils/auth/2FA";
 import speakeasy from "speakeasy";
+import { HTTP_MESSAGES } from "#src/utils/httpMessages";
 
 /** @type {import('express').RequestHandler} */
 export async function enable2FA(req, res) {
@@ -9,7 +10,7 @@ export async function enable2FA(req, res) {
   const user = await getUserById(userid);
   if (!user) {
     req.session.destroy();
-    return res.status(404).json({ message: "Resource not found" });
+    return res.status(404).json({ message: HTTP_MESSAGES[404] });
   }
 
   const password = req.validatedData.password;
