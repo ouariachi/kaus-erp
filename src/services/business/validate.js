@@ -4,6 +4,7 @@ export async function businessExists(data) {
   const business = await getBusinessWhere(
     { 
       OR: [
+        { id: data.id },
         { name: { contains: data.name, mode: "insensitive" } },
         { nif: { contains: data.nif, mode: "insensitive" } },
         { phone: { contains: data.phone, mode: "insensitive" } },
