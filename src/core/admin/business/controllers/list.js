@@ -1,24 +1,13 @@
 import { getBusinesses } from "#src/models/Business";
+import { validatePagination } from "#src/utils/pagination";
 
 /** @type {import("express").RequestHandler} */
 export async function list(req, res) {
-  let { page } = req.params;
-  let { limit } = req.query;
-  
-  if (page) {
-    if (isNaN(page) || page < 1) {
-      return res.status(400).json({ message: 'Invalid page number' });
-    }
-    page = parseInt(page);
-  }
+  let { page: noValidatedPage } = req.params;
+  let { limit: noValidatedLimit } = req.query;
+  const { page, limit, success } = validatePagination({ page: noValidatedPage, limit: noValidatedLimit, res });
+  if (!success) return;
 
-  if (limit) {
-    if (isNaN(limit) || limit < 1) {
-      return res.status(400).json({ message: 'Invalid limit' });
-    }
-    limit = parseInt(limit);
-  }
-  
   try {
     const result = await getBusinesses({
       page,

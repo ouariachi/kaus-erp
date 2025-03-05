@@ -1,0 +1,36 @@
+import { getBusinessUsers } from "#src/models/BusinessUser";
+import { businessExists } from "#src/services/business/validate";
+import { validatePagination } from "#src/utils/pagination";
+
+export async function listUsers(req, res) {
+  const { id: idStr } = req.params;
+  if (!idStr) {
+    return res.status(400).json({ message: 'Invalid request' });
+  }
+  
+  const id = parseInt(idStr);
+  if (isNaN(idStr) || id < 0) {
+    return res.status(400).json({ message: 'Invalid id' });
+  }
+
+  let { page: noValidatedPage } = req.params;
+  let { limit: noValidatedLimit } = req.query;
+  const { page, limit, success } = validatePagination({ page: noValidatedPage, limit: noValidatedLimit, res });
+  if (!success) return;
+
+  if (!await businessExists({ id })) {
+    return res.status(400).json({ message: 'Business does not exist' });
+  }
+
+  try {
+    const result = await getBusinessUsers({ 
+      where: { Business: { id } },
+      page,
+      limit, 
+    });
+    return res.status(200).json(result);
+  } catch  (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+}
