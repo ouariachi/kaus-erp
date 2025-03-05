@@ -14,6 +14,7 @@ const limiter = rateLimit({
   windowMs: 5 * 60 * 1000,
   max: 100,
   message: JSON.stringify({ message: HTTP_MESSAGES[429] }),
+  handler: (_, res) => res.status(429).json({ message: HTTP_MESSAGES[429] }),
 });
 
 const speedLimiter = slowDown({
