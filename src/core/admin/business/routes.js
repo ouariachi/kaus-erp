@@ -6,7 +6,11 @@ import { getById } from './controllers/getById.js';
 import { listUsers } from './controllers/listUsers.js';
 
 const adminBusinessRouter = Router(); 
+
+// List all businesses
 adminBusinessRouter.get('/', list);
+
+// Create a new business
 adminBusinessRouter.post(
   "/", 
   createAccessMiddleware,
@@ -14,7 +18,11 @@ adminBusinessRouter.post(
   createUniqueMiddleware,
   create
 );
+
+// Get a business by id
 adminBusinessRouter.get('/:id', getById);
+
+// List users of a business
 adminBusinessRouter.get("/:id/users", listUsers);
 
 
