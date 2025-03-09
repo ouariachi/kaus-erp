@@ -1,7 +1,7 @@
 import { UserRole } from "@prisma/client";
 
 export function isAdmin(user) { 
-  if (!user) {
+  if (!user || !user.role) {
     return false;
   }
   
@@ -12,7 +12,7 @@ export function isAdmin(user) {
 }
 
 export function isSuperAdmin(user) {
-  if (!user) {
+  if (!user || !user.role) {
     return false;
   }
   
