@@ -8,7 +8,7 @@ export async function getById(req, res) {
   }
   
   const id = parseInt(idStr);
-  if (isNaN(idStr) || id < 0) {
+  if (isNaN(idStr) || isNaN(id) || id < 0) {
     return res.status(400).json({ message: 'Invalid id' });
   }
 
