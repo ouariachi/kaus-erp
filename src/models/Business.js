@@ -47,13 +47,14 @@ export async function getBusinessWhere(where, include) {
 }
 
 /**
- * @param {Prisma.BusinessWhereInput} [where]
- * @param {Prisma.BusinessInclude | undefined} include
- * @param {Prisma.BusinessOrderByWithRelationInput | undefined} orderBy
- * @param {number} [page=1]
- * @param {number} [limit=10]
+ * @param {Object} data
+ * @param {Prisma.BusinessWhereInput} [data.where]
+ * @param {Prisma.BusinessInclude | undefined} data.include
+ * @param {Prisma.BusinessOrderByWithRelationInput | undefined} data.orderBy
+ * @param {number} [data.page=1]
+ * @param {number} [data.limit=10]
  */
-export async function getBusinesses({where, include, orderBy, page = 1, limit = 10}) {
+export async function getBusinesses({ where, include, orderBy, page = 1, limit = 10 }) {
   limit = Math.max(limit, 1);
   const total = await prisma.business.count();
   const totalPages = Math.ceil(total / limit);
