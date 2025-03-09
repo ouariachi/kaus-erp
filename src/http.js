@@ -6,6 +6,7 @@ import adminRouter from "./core/admin/routes.js";
 import { HTTP_MESSAGES } from "./utils/httpMessages.js";
 import rateLimit from "express-rate-limit";
 import slowDown from "express-slow-down";
+import { isAdmin } from "./utils/auth/userRole.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -15,6 +16,7 @@ const limiter = rateLimit({
   max: 100,
   message: JSON.stringify({ message: HTTP_MESSAGES[429] }),
   handler: (_, res) => res.status(429).json({ message: HTTP_MESSAGES[429] }),
+  skip: (req) => { if(req.session && req.session.user) return isAdmin(req.session.user) },
 });
 
 const speedLimiter = slowDown({
@@ -24,11 +26,11 @@ const speedLimiter = slowDown({
 })
 
 // middlewares
+app.use(sessionMiddleware);
 app.use(limiter);
 app.use(speedLimiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(sessionMiddleware);
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
 
 
