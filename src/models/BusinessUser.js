@@ -48,13 +48,14 @@ export async function getBusinessUserByUserId(userId, include) {
 }
 
 /**
- * @param {Prisma.BusinessUserWhereInput} [where]
- * @param {Prisma.BusinessUserInclude | undefined} include
- * @param {Prisma.BusinessUserOrderByWithRelationInput | undefined} orderBy
- * @param {number} [page=1]
- * @param {number} [limit=10]
+ * @param {Object} data
+ * @param {Prisma.BusinessUserWhereInput} [data.where]
+ * @param {Prisma.BusinessUserInclude | undefined} data.include
+ * @param {Prisma.BusinessUserOrderByWithRelationInput | undefined} data.orderBy
+ * @param {number} [data.page=1]
+ * @param {number} [data.limit=10]
  */
-export async function getBusinessUsers({where, include, orderBy, page = 1, limit = 10}) {
+export async function getBusinessUsers({ where, include, orderBy, page = 1, limit = 10 }) {
   limit = Math.max(limit, 1);
   const total = await prisma.businessUser.count();
   const totalPages = Math.ceil(total / limit);
