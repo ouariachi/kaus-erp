@@ -4,7 +4,7 @@ import { validatePagination } from "#src/utils/pagination";
 import { parseIdParam } from "#src/utils/parseIdParam";
 
 export async function listUsers(req, res) {
-  const { id } = parseIdParam(req, res);
+  const id = parseIdParam(req, res);
   if (!id) {
     return;
   }
