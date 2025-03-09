@@ -22,6 +22,11 @@ export async function listUsers(req, res) {
       where: { Business: { id } },
       page,
       limit, 
+      include: {
+        User: false,
+        Business: false,
+        Modules: true
+      }
     });
     return res.status(200).json(result);
   } catch  (error) {
