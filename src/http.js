@@ -10,6 +10,7 @@ import { isAdmin } from "./utils/auth/userRole.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+app.set('trust proxy', 1);
 
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000,
