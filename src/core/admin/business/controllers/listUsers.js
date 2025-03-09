@@ -1,16 +1,12 @@
 import { getBusinessUsers } from "#src/models/BusinessUser";
 import { businessExists } from "#src/services/business/validate";
 import { validatePagination } from "#src/utils/pagination";
+import { parseIdParam } from "#src/utils/parseIdParam";
 
 export async function listUsers(req, res) {
-  const { id: idStr } = req.params;
-  if (!idStr) {
-    return res.status(400).json({ message: 'Invalid request' });
-  }
-  
-  const id = parseInt(idStr);
-  if (isNaN(idStr) || id < 0) {
-    return res.status(400).json({ message: 'Invalid id' });
+  const { id } = parseIdParam(req, res);
+  if (!id) {
+    return;
   }
 
   let { page: noValidatedPage } = req.params;

@@ -1,15 +1,11 @@
 import { getBusinessById } from "#src/models/Business";
+import { parseIdParam } from "#src/utils/parseIdParam";
 
 /** @type {import("express").RequestHandler} */
 export async function getById(req, res) {
-  const { id: idStr } = req.params;
-  if (!idStr) {
-    return res.status(400).json({ message: 'Invalid request' });
-  }
-  
-  const id = parseInt(idStr);
-  if (isNaN(idStr) || isNaN(id) || id < 0) {
-    return res.status(400).json({ message: 'Invalid id' });
+  const id = parseIdParam(req, res);
+  if (!id) {
+    return;
   }
 
   try {
