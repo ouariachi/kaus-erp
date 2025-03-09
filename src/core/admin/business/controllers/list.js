@@ -3,8 +3,7 @@ import { validatePagination } from "#src/utils/pagination";
 
 /** @type {import("express").RequestHandler} */
 export async function list(req, res) {
-  let { page: noValidatedPage } = req.params;
-  let { limit: noValidatedLimit } = req.query;
+  let { limit: noValidatedLimit, page: noValidatedPage } = req.query;
   const { page, limit, success } = validatePagination({ page: noValidatedPage, limit: noValidatedLimit, res });
   if (!success) return;
 

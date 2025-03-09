@@ -6,17 +6,16 @@ import { getById } from './controllers/getById.js';
 import { listUsers } from './controllers/listUsers.js';
 
 const adminBusinessRouter = Router(); 
-adminBusinessRouter.get('/', (_, res) => res.json({ message: 'Admin Business route' }));
+adminBusinessRouter.get('/', list);
 adminBusinessRouter.post(
-  "/create", 
+  "/", 
   createAccessMiddleware,
   createValidationDataMiddleware,    
   createUniqueMiddleware,
   create
 );
-adminBusinessRouter.get('/list/:page?', list);
 adminBusinessRouter.get('/:id', getById);
-adminBusinessRouter.get("/:id/users/:page?", listUsers);
+adminBusinessRouter.get("/:id/users", listUsers);
 
 
 export default adminBusinessRouter;

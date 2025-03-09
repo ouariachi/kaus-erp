@@ -9,8 +9,7 @@ export async function listUsers(req, res) {
     return;
   }
 
-  let { page: noValidatedPage } = req.params;
-  let { limit: noValidatedLimit } = req.query;
+  let { limit: noValidatedLimit, page: noValidatedPage } = req.query;
   const { page, limit, success } = validatePagination({ page: noValidatedPage, limit: noValidatedLimit, res });
   if (!success) return;
 
