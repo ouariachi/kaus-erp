@@ -9,7 +9,7 @@ export async function getById(req, res) {
   }
 
   try {
-    const result = await getBusinessById(id);
+    const result = await getBusinessById(id, { BusinessUsers: false });
     if (!result) {
       return res.status(404).json({ message: 'Business not found' });
     }

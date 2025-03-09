@@ -11,6 +11,9 @@ export async function list(req, res) {
     const result = await getBusinesses({
       page,
       limit,
+      include: {
+        BusinessUsers: false
+      }
     });
   
     return res.status(200).json(result);
