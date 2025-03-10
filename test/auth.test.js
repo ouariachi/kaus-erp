@@ -9,14 +9,14 @@ describe("Auth Tests", () => {
   let server;
   let cookie;
   const AUTH_DATA = {
-    email: "moha@ouariachi.com",
+    email: "no-reply@ouariachi.com",
     password: "test1234",
     firstname: "Test",
     lastname: "User",
   }
 
   beforeAll(() => {
-    server = app.listen(3000);
+    server = app.listen(4000);
   });
 
   afterAll(async () => {
