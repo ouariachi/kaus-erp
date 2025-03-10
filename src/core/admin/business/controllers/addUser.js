@@ -1,4 +1,5 @@
 import { createBusinessUser } from "#src/models/BusinessUser";
+import { BusinessUserStatus } from "@prisma/client";
 
 /** @type {import("express").RequestHandler} */
 export async function addUser(req, res) {
@@ -8,6 +9,7 @@ export async function addUser(req, res) {
   try {
     const businessUser = await createBusinessUser({
       role,
+      status: BusinessUserStatus.ACTIVE,
       Business: {
         connect: {
           id: businessId
