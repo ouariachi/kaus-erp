@@ -44,3 +44,7 @@ app.get("*", (_, res) => res.status(404).json({ message: HTTP_MESSAGES[404] }));
 export function initHTTP() {
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 }
+
+export function getApp() {
+  return app;
+}
