@@ -64,6 +64,18 @@ jobs:
 
       - name: Run tests
         run: npm test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          EXPRESS_SESSION_SECRET: ${{ secrets.EXPRESS_SESSION_SECRET }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_DOMAIN: ${{ secrets.EMAIL_DOMAIN }}
+          EMAIL_SMTP_HOST: ${{ secrets.EMAIL_SMTP_HOST }}
+          EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+          EMAIL_SECURE: ${{ secrets.EMAIL_SECURE }}
+          PORT: ${{ secrets.PORT }}
+          SERVER_URL: ${{ secrets.SERVER_URL }}
+          CLIENT_URL: ${{ secrets.CLIENT_URL }}
 
       - name: Stop the server
         run: kill $(lsof -t -i:3000)
