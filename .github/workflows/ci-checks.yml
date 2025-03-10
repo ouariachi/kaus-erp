@@ -1,0 +1,70 @@
+name: Validate PRs and Merges
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  start-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ERP
+        ports:
+          - 5432:5432
+        options: --health-cmd="pg_isready -U postgres" --health-interval=10s --health-timeout=5s --health-retries=5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '23.8.0'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Setup prisma
+        run: npx prisma db push --accept-data-loss
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Start the server
+        run: |
+          nohup npm start &
+          sleep 15
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          EXPRESS_SESSION_SECRET: ${{ secrets.EXPRESS_SESSION_SECRET }}
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_DOMAIN: ${{ secrets.EMAIL_DOMAIN }}
+          EMAIL_SMTP_HOST: ${{ secrets.EMAIL_SMTP_HOST }}
+          EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
+          EMAIL_SECURE: ${{ secrets.EMAIL_SECURE }}
+          PORT: ${{ secrets.PORT }}
+          SERVER_URL: ${{ secrets.SERVER_URL }}
+          CLIENT_URL: ${{ secrets.CLIENT_URL }}
+
+      - name: Test server is running
+        run: curl --fail http://localhost:3000 || exit 1
+
+      - name: Run tests
+        run: npm test
+
+      - name: Stop the server
+        run: kill $(lsof -t -i:3000)
+
