@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const enable2FASchema = z.object({
   password: z
-    .string({ 
+    .string({
       required_error: "Password is required",
       invalid_type_error: "Password is invalid",
     })
@@ -12,7 +12,7 @@ export const enable2FASchema = z.object({
 
 export const confirm2FASchema = z.object({
   password: z
-    .string({ 
+    .string({
       required_error: "Password is required",
       invalid_type_error: "Password is invalid",
     })
@@ -23,12 +23,12 @@ export const confirm2FASchema = z.object({
       required_error: "Code is required",
       invalid_type_error: "Code is invalid",
     })
-    .positive("Code must be a positive number")
+    .positive("Code must be a positive number"),
 });
 
 export const disable2FASchema = z.object({
   password: z
-    .string({ 
+    .string({
       required_error: "Password is required",
       invalid_type_error: "Password is invalid",
     })
@@ -39,5 +39,5 @@ export const disable2FASchema = z.object({
       required_error: "Code is required",
       invalid_type_error: "Code is invalid",
     })
-    .positive("Code must be a positive number")
+    .positive("Code must be a positive number"),
 });

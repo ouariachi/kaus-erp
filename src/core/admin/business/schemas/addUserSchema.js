@@ -16,5 +16,5 @@ export const addUserSchema = z.object({
       invalid_type_error: "Invalid role",
     })
     .optional()
-    .default(BusinessUserRole.USER)
+    .default(BusinessUserRole.USER),
 });

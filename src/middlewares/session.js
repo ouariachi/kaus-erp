@@ -6,7 +6,7 @@ const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-export const sessionStore = new (connectPgSimple(session))({ 
+export const sessionStore = new (connectPgSimple(session))({
   createTableIfMissing: true,
   pruneSessionInterval: 60 * 60 * 12,
   pool,
@@ -20,9 +20,9 @@ export const sessionMiddleware = session({
   store: sessionStore,
   saveUninitialized: false,
   cookie: {
-    path: '/',
-    secure: process.env.NODE_ENV === 'production',
+    path: "/",
+    secure: process.env.NODE_ENV === "production",
     httpOnly: true,
     sameSite: "strict",
-  }
+  },
 });

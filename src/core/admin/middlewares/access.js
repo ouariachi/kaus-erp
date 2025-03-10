@@ -1,5 +1,5 @@
-import { isAdmin } from '#src/utils/auth/userRole';
-import { HTTP_MESSAGES } from '#src/utils/httpMessages';
+import { isAdmin } from "#src/utils/auth/userRole";
+import { HTTP_MESSAGES } from "#src/utils/httpMessages";
 
 /** @type {import('express').RequestHandler} */
 export const adminAccessMiddleware = (req, res, next) => {

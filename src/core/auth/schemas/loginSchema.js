@@ -7,9 +7,9 @@ export const loginSchema = z.object({
       invalid_type_error: "Email is invalid",
     })
     .trim()
-    .email("Email is invalid"), 
+    .email("Email is invalid"),
   password: z
-    .string({ 
+    .string({
       required_error: "Password is required",
       invalid_type_error: "Password is invalid",
     })

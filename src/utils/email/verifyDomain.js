@@ -2,8 +2,8 @@ import dns from "node:dns";
 
 /**
  * Verifies the domain of an email address by checking for MX records
- * 
- * @param {string} domain 
+ *
+ * @param {string} domain
  * @returns {Promise<boolean>}
  */
 export async function verifyDomain(domain) {
@@ -14,7 +14,7 @@ export async function verifyDomain(domain) {
       domain = domain.split("@")[1];
     }
   }
-  
+
   return new Promise((resolve) => {
     // Local domains are always valid
     if (domain.includes(".local")) {

@@ -6,43 +6,43 @@ const DEFAULT_INCLUDE = {
   BusinessUsers: {
     include: {
       User: true,
-      Modules: true
-    }
-  }
+      Modules: true,
+    },
+  },
 };
 
 /**
  * @param {Prisma.BusinessCreateInput} business
- * @param {Prisma.BusinessInclude | undefined} include 
+ * @param {Prisma.BusinessInclude | undefined} include
  */
 export async function createBusiness(business, include) {
   return await prisma.business.create({
     data: business,
-    include: include || DEFAULT_INCLUDE
+    include: include || DEFAULT_INCLUDE,
   });
 }
 
 /**
  * @param {number} id
- * @param {Prisma.BusinessInclude | undefined} include 
+ * @param {Prisma.BusinessInclude | undefined} include
  */
 export async function getBusinessById(id, include) {
   return await prisma.business.findUnique({
     where: {
       id,
     },
-    include: include || DEFAULT_INCLUDE
+    include: include || DEFAULT_INCLUDE,
   });
 }
 
 /**
  * @param {Prisma.BusinessWhereInput} where
- * @param {Prisma.BusinessInclude | undefined} include 
+ * @param {Prisma.BusinessInclude | undefined} include
  */
 export async function getBusinessWhere(where, include) {
   return await prisma.business.findFirst({
     where,
-    include: include || DEFAULT_INCLUDE
+    include: include || DEFAULT_INCLUDE,
   });
 }
 
@@ -70,8 +70,8 @@ export async function getBusinesses({ where, include, orderBy, page = 1, limit =
         totalPages,
         nextPage: null,
         prevPage: null,
-      }
-    }
+      },
+    };
   }
 
   const business = await prisma.business.findMany({
@@ -91,14 +91,14 @@ export async function getBusinesses({ where, include, orderBy, page = 1, limit =
       totalPages,
       nextPage: page < totalPages ? page + 1 : null,
       prevPage: page > 1 ? page - 1 : null,
-    }
-  }
+    },
+  };
 }
 
 /**
  * @param {number} id
  * @param {Prisma.BusinessUpdateInput} data
- * @param {Prisma.BusinessInclude | undefined} include 
+ * @param {Prisma.BusinessInclude | undefined} include
  */
 export async function updateBusiness(id, data, include) {
   return await prisma.business.update({
@@ -106,7 +106,7 @@ export async function updateBusiness(id, data, include) {
       id,
     },
     data,
-    include: include || DEFAULT_INCLUDE
+    include: include || DEFAULT_INCLUDE,
   });
 }
 

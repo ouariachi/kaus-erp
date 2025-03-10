@@ -8,34 +8,28 @@ import { addUser } from "./controllers/addUser.js";
 import { addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserValidationDataMiddleware } from "./middlewares/addUser.js";
 import { getBusinessUser } from "./controllers/getBusinessUser.js";
 
-const adminBusinessRouter = Router(); 
+const adminBusinessRouter = Router();
 
 // List all businesses
-adminBusinessRouter.get('/', list); 
+adminBusinessRouter.get("/", list);
 
 // Create a new business
-adminBusinessRouter.post(
-  "/", 
-  createAccessMiddleware,
-  createValidationDataMiddleware,    
-  createUniqueMiddleware,
-  create
-); 
+adminBusinessRouter.post("/", createAccessMiddleware, createValidationDataMiddleware, createUniqueMiddleware, create);
 
 // Get a business by id
-adminBusinessRouter.get('/:id', getBusiness); 
+adminBusinessRouter.get("/:id", getBusiness);
+
+// Update a business
+// TODO: Implement update business
+
+// Delete a business
+// TODO: Implement delete business
 
 // List users of a business
-adminBusinessRouter.get("/:id/users", listUsers); 
+adminBusinessRouter.get("/:id/users", listUsers);
 
 // Add a user to a business
-adminBusinessRouter.post(
-  "/:id/users",
-  addUserValidationDataMiddleware, 
-  addUserBusinessExistsMiddleware,
-  addUserUserExistsMiddleware,
-  addUser
-); 
+adminBusinessRouter.post("/:id/users", addUserValidationDataMiddleware, addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUser);
 
 // Get a user by id
 adminBusinessRouter.get("/:id/users/:userId", getBusinessUser);

@@ -14,10 +14,10 @@ export async function enable2FA(req, res) {
   }
 
   const password = req.validatedData.password;
-  if(!await verifyPassword(password, user.password)) {
+  if (!(await verifyPassword(password, user.password))) {
     return res.status(401).json({ message: "Invalid password" });
   }
-  
+
   let twoFASecret = {};
   if (!user.twoFASecret) {
     twoFASecret = generate2FASecret(user.email);
@@ -31,16 +31,16 @@ export async function enable2FA(req, res) {
     twoFASecret.base32 = user.twoFASecret;
     twoFASecret.otpauth_url = speakeasy.otpauthURL({
       secret: twoFASecret.base32,
-      label: user.email, 
-      issuer: "KAUS ERP", 
+      label: user.email,
+      issuer: "KAUS ERP",
     });
   }
 
-  return res.status(200).json({ 
+  return res.status(200).json({
     secret: {
       code: twoFASecret.base32,
-      url: twoFASecret.otpauth_url
-    }  
+      url: twoFASecret.otpauth_url,
+    },
   });
 }
 
@@ -53,7 +53,7 @@ export async function confirm2FA(req, res) {
   }
 
   const password = req.validatedData.password;
-  if(!await verifyPassword(password, user.password)) {
+  if (!(await verifyPassword(password, user.password))) {
     return res.status(401).json({ message: "Invalid password" });
   }
 
@@ -90,7 +90,7 @@ export async function disable2FA(req, res) {
   }
 
   const password = req.validatedData.password;
-  if(!await verifyPassword(password, user.password)) {
+  if (!(await verifyPassword(password, user.password))) {
     return res.status(401).json({ message: "Invalid password" });
   }
 
@@ -113,4 +113,3 @@ export async function disable2FA(req, res) {
 
   return res.status(200).json({ message: "2FA disabled successfully" });
 }
-

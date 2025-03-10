@@ -3,8 +3,9 @@
 To maintain a clean and consistent commit history, we follow the **Conventional Commits** standard. This helps us automate changelogs, versioning, and improve the readability of the project's history.
 
 ## 📌 Types and Emojis:
-| Type         | Emoji                         | Description                                                    |
-| ------------ | ----------------------------- | -------------------------------------------------------------- |
+
+| Type         | Emoji                          | Description                                                    |
+| ------------ | ------------------------------ | -------------------------------------------------------------- |
 | **feat**     | ✨ (`:sparkles:`)              | A new feature is introduced.                                   |
 | **fix**      | 🐛 (`:bug:`)                   | A bug has been fixed.                                          |
 | **docs**     | 📚 (`:books:`)                 | Documentation has been updated.                                |
@@ -16,15 +17,15 @@ To maintain a clean and consistent commit history, we follow the **Conventional 
 | **ci**       | 🤖 (`:robot:`)                 | Changes related to Continuous Integration/Continuous Delivery. |
 | **build**    | 🏗 (`:building_construction:`) | Changes that affect the build system.                          |
 | **revert**   | ⏪ (`:rewind:`)                | Reverts a previous commit.                                     |
-| **security** | 🛡️ (`:shield:`)                | Fixes security vulnerabilities in the code.
+| **security** | 🛡️ (`:shield:`)                | Fixes security vulnerabilities in the code.                    |
 
 ## 📌 Examples:
-| Type         | Example                                                       |
-| ------------ | ------------------------------------------------------------- |
-| **feat**     | `✨ feat(auth): add JWT authentication support`                |
-| **fix**      | `🐛 fix(cart): fix checkout button not working on mobile`      |
-| **docs**     | `📚 docs(readme): update installation instructions`            |
 
+| Type     | Example                                                   |
+| -------- | --------------------------------------------------------- |
+| **feat** | `✨ feat(auth): add JWT authentication support`           |
+| **fix**  | `🐛 fix(cart): fix checkout button not working on mobile` |
+| **docs** | `📚 docs(readme): update installation instructions`       |
 
 ## ⚙️ How to Use
 

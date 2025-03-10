@@ -27,7 +27,7 @@ export function sendEmail({ to, subject, html }) {
   if (!transporter) {
     throw new Error("Email transporter not initialized");
   }
-  
+
   transporter.sendMail({
     from: `No Reply <${process.env.EMAIL_USER}>`,
     to,

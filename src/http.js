@@ -10,21 +10,23 @@ import { isAdmin } from "./utils/auth/userRole.js";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-app.set('trust proxy', 1);
+app.set("trust proxy", 1);
 
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000,
   max: 100,
   message: JSON.stringify({ message: HTTP_MESSAGES[429] }),
   handler: (_, res) => res.status(429).json({ message: HTTP_MESSAGES[429] }),
-  skip: (req) => { if(req.session && req.session.user) return isAdmin(req.session.user) },
+  skip: (req) => {
+    if (req.session && req.session.user) return isAdmin(req.session.user);
+  },
 });
 
 const speedLimiter = slowDown({
   windowMs: 15 * 60 * 1000,
   delayAfter: 1,
   delayMs: () => 500,
-})
+});
 
 // middlewares
 app.use(sessionMiddleware);
@@ -34,10 +36,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }));
 
-
 // routes
 app.use("/auth", authRouter);
-app.use("/admin", adminRouter)
+app.use("/admin", adminRouter);
 app.get("/", (_, res) => res.json({ status: "ok" }));
 app.get("*", (_, res) => res.status(404).json({ message: HTTP_MESSAGES[404] }));
 

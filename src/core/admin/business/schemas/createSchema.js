@@ -37,7 +37,7 @@ export const createSchema = z.object({
           invalid_type_error: "Domain must be a string",
         })
         .trim()
-        .regex(/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Invalid domain format")
+        .regex(/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Invalid domain format"),
     )
     .min(1, "At least one domain is required"),
 
@@ -48,7 +48,7 @@ export const createSchema = z.object({
           invalid_type_error: "Each exception email must be a string",
         })
         .trim()
-        .email("Invalid exception email format")
+        .email("Invalid exception email format"),
     )
     .optional(),
 
@@ -58,7 +58,7 @@ export const createSchema = z.object({
     })
     .trim()
     .optional(),
-  
+
   city: z
     .string({
       invalid_type_error: "City must be a string",
@@ -72,7 +72,7 @@ export const createSchema = z.object({
     })
     .trim()
     .optional(),
-  
+
   zipCode: z
     .string({
       invalid_type_error: "ZIP code must be a string",
@@ -85,7 +85,7 @@ export const createSchema = z.object({
       invalid_type_error: "Country must be a string",
     })
     .trim()
-    .optional(),  
+    .optional(),
 
   industry: z
     .string({

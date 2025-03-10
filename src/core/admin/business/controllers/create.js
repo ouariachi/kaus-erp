@@ -3,21 +3,21 @@ import { isSuperAdmin } from "#src/utils/auth/userRole";
 
 /** @type {import("express").RequestHandler} */
 export async function create(req, res) {
-  if(!isSuperAdmin(req.session.user)) {
-    return res.status(403).json({ message: 'Unauthorized' });
+  if (!isSuperAdmin(req.session.user)) {
+    return res.status(403).json({ message: "Unauthorized" });
   }
 
   try {
     const newBusiness = await prisma.business.create({
-      data: req.validatedData
+      data: req.validatedData,
     });
-    
+
     if (!newBusiness) {
-      return res.status(500).json({ message: 'Error creating business' });
+      return res.status(500).json({ message: "Error creating business" });
     }
   } catch (error) {
-    return res.status(500).json({ message: 'Error creating business', error: error.message });
+    return res.status(500).json({ message: "Error creating business", error: error.message });
   }
 
-  res.status(201).json({ message: 'Business created' });
+  res.status(201).json({ message: "Business created" });
 }

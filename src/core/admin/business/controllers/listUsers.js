@@ -10,27 +10,31 @@ export async function listUsers(req, res) {
   }
 
   let { limit: noValidatedLimit, page: noValidatedPage } = req.query;
-  const { page, limit, success } = validatePagination({ page: noValidatedPage, limit: noValidatedLimit, res });
+  const { page, limit, success } = validatePagination({
+    page: noValidatedPage,
+    limit: noValidatedLimit,
+    res,
+  });
   if (!success) return;
 
-  if (!await businessExists({ id })) {
-    return res.status(400).json({ message: 'Business does not exist' });
+  if (!(await businessExists({ id }))) {
+    return res.status(400).json({ message: "Business does not exist" });
   }
 
   try {
-    const result = await getBusinessUsers({ 
+    const result = await getBusinessUsers({
       where: { Business: { id } },
       page,
-      limit, 
+      limit,
       include: {
         User: false,
         Business: false,
-        Modules: true
-      }
+        Modules: true,
+      },
     });
     return res.status(200).json(result);
-  } catch  (error) {
+  } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Internal server error', error: error.message });
+    return res.status(500).json({ message: "Internal server error", error: error.message });
   }
 }

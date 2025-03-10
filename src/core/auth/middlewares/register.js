@@ -18,15 +18,12 @@ export async function validateAllowedEmailMiddleware(req, res, next) {
   /** @type {string} */
   const email = req.validatedData.email;
   const domain = email.split("@")[1].toLowerCase();
-  
-  const [businessByDomain, businessByEmail] = await Promise.all([
-    getBusinessByAllowedDomains(domain),
-    getBusinessByAllowedEmails(email),
-  ]);
 
-  if (!businessByDomain && !businessByEmail && !domain.endsWith(process.env.EMAIL_DOMAIN)) { 
+  const [businessByDomain, businessByEmail] = await Promise.all([getBusinessByAllowedDomains(domain), getBusinessByAllowedEmails(email)]);
+
+  if (!businessByDomain && !businessByEmail && !domain.endsWith(process.env.EMAIL_DOMAIN)) {
     return respondWithEmailRegistrationFailure(res);
   }
-  
+
   return next();
 }

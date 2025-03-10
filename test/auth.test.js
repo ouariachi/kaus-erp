@@ -13,7 +13,7 @@ describe("Auth Tests", () => {
     password: "test1234",
     firstname: "Test",
     lastname: "User",
-  }
+  };
 
   beforeAll(() => {
     server = app.listen(4000);
@@ -40,7 +40,7 @@ describe("Auth Tests", () => {
 
     await prisma.user.update({
       where: { email: AUTH_DATA.email },
-      data: { emailVerified: true }
+      data: { emailVerified: true },
     });
   });
 
@@ -51,7 +51,9 @@ describe("Auth Tests", () => {
   });
 
   it("Should not login the user with wrong password", async () => {
-    const res = await request(app).post("/auth/login").send({ ...AUTH_DATA, password: "wrongpassword" });
+    const res = await request(app)
+      .post("/auth/login")
+      .send({ ...AUTH_DATA, password: "wrongpassword" });
     expect(res.status).toBe(401);
   });
 

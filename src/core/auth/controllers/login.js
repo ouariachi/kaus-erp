@@ -21,21 +21,21 @@ export async function login(req, res) {
     if (user.lastLogin && Date.now() - user.lastLogin < LOGIN_TIMEOUT) {
       return res.status(429).json({ message: "Too many failed attempts. Please try again later." });
     }
-  
+
     await updateUser(user.id, { failedLogins: 0, lastLogin: null });
     user.failedLogins = 0;
     user.lastLogin = null;
   }
 
-  if (!await verifyPassword(password, user.password)) {
+  if (!(await verifyPassword(password, user.password))) {
     try {
-      const updated = await updateUser(user.id, { 
-        failedLogins: {  
-          increment: 1 
+      const updated = await updateUser(user.id, {
+        failedLogins: {
+          increment: 1,
         },
-        lastLogin: new Date()
+        lastLogin: new Date(),
       });
-      
+
       user.failedLogins = updated.failedLogins;
       user.lastLogin = updated.lastLogin;
     } catch (err) {
@@ -62,8 +62,8 @@ export async function login(req, res) {
 
   req.session.user = {
     id: user.id,
-    role: user.role
-  }
+    role: user.role,
+  };
 
   try {
     await updateUser(user.id, { failedLogins: 0, lastLogin: new Date() });

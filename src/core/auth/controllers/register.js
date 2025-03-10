@@ -6,12 +6,12 @@ import { SMTP_ERROR_MESSAGES } from "#src/utils/email/smtpErrorMessages";
 
 export async function register(req, res) {
   const { email, password, firstname, lastname } = req.validatedData;
-  if(await getUserByEmail(email)) {
+  if (await getUserByEmail(email)) {
     return respondWithEmailRegistrationFailure(res);
   }
 
   let user;
-  
+
   try {
     user = await createUser({
       email,
@@ -22,7 +22,7 @@ export async function register(req, res) {
   } catch (err) {
     return res.status(500).json({ message: "Internal server error", error: err.message });
   }
-  
+
   try {
     await sendEmailVerificationToken(email, firstname);
   } catch (err) {
@@ -38,6 +38,6 @@ export async function register(req, res) {
     }
     return res.status(500).json({ message: "Internal server error", error: err.message });
   }
-  
+
   return res.status(201).json({ message: "User created successfully" });
 }

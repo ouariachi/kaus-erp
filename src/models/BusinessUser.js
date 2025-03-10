@@ -5,7 +5,7 @@ import { Prisma } from "@prisma/client";
 const DEFAULT_INCLUDE = {
   User: true,
   Business: true,
-  Modules: true  
+  Modules: true,
 };
 
 /**
@@ -15,7 +15,7 @@ const DEFAULT_INCLUDE = {
 export async function createBusinessUser(businessUser, include) {
   return await prisma.businessUser.create({
     data: businessUser,
-    include: include || DEFAULT_INCLUDE
+    include: include || DEFAULT_INCLUDE,
   });
 }
 
@@ -28,7 +28,7 @@ export async function getBusinessUserById(id, include) {
     where: {
       id,
     },
-    include: include || DEFAULT_INCLUDE
+    include: include || DEFAULT_INCLUDE,
   });
 }
 
@@ -36,14 +36,14 @@ export async function getBusinessUserById(id, include) {
  * @param {number} userId
  * @param {Prisma.BusinessUserInclude | undefined} include
  */
-export async function getBusinessUserByUserId(userId, include) { 
+export async function getBusinessUserByUserId(userId, include) {
   return await prisma.businessUser.findFirst({
     where: {
       User: {
-        id: userId
-      }
+        id: userId,
+      },
     },
-    include: include || DEFAULT_INCLUDE
+    include: include || DEFAULT_INCLUDE,
   });
 }
 
@@ -71,8 +71,8 @@ export async function getBusinessUsers({ where, include, orderBy, page = 1, limi
         totalPages,
         nextPage: null,
         prevPage: null,
-      }
-    }
+      },
+    };
   }
 
   const users = await prisma.businessUser.findMany({
@@ -92,8 +92,8 @@ export async function getBusinessUsers({ where, include, orderBy, page = 1, limi
       totalPages,
       nextPage: page < totalPages ? page + 1 : null,
       prevPage: page > 1 ? page - 1 : null,
-    }
-  }
+    },
+  };
 }
 
 /**
@@ -106,7 +106,7 @@ export async function updateBusinessUser(id, data, include) {
       id,
     },
     data,
-    include: include || DEFAULT_INCLUDE
+    include: include || DEFAULT_INCLUDE,
   });
 }
 

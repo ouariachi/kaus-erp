@@ -6,7 +6,7 @@ const DEFAULT_INCLUDE = {
 };
 
 /**
- * @param {string} email 
+ * @param {string} email
  * @param {Prisma.UserInclude} [include]
  */
 export async function getUserByEmail(email, include) {
@@ -19,7 +19,7 @@ export async function getUserByEmail(email, include) {
 }
 
 /**
- * @param {number} id 
+ * @param {number} id
  * @param {Prisma.UserInclude} [include]
  */
 export async function getUserById(id, include) {

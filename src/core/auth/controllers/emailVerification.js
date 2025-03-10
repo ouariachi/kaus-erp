@@ -15,7 +15,7 @@ export async function emailVerification(req, res) {
   if (!emailVerificationToken) {
     return res.status(400).json({ message: "Invalid token" });
   }
-  
+
   if (emailVerificationToken.User.emailVerified) {
     return res.status(400).json({ message: "Email already verified" });
   }
@@ -37,7 +37,7 @@ export async function emailVerification(req, res) {
   return res.status(200).json({ message: "Email verified successfully" });
 }
 
-const TOKEN_RESEND_INTERVALS = [ 0.5 * HOUR, 1 * HOUR, 5 * HOUR, 12 * HOUR ];
+const TOKEN_RESEND_INTERVALS = [0.5 * HOUR, 1 * HOUR, 5 * HOUR, 12 * HOUR];
 
 export async function resendEmailVerification(req, res) {
   const { email } = req.query;
@@ -65,8 +65,8 @@ export async function resendEmailVerification(req, res) {
     await deleteEmailVerificationToken(token.token);
     await sendEmailVerificationToken(user.email, user.firstname);
     return res.status(200).json({ message: "Email verification token sent successfully" });
-  } 
-  
+  }
+
   if (token.resendCount >= TOKEN_RESEND_INTERVALS.length) {
     return res.status(400).json({ message: "Maximum resend count exceeded" });
   }
@@ -74,9 +74,12 @@ export async function resendEmailVerification(req, res) {
   const interval = TOKEN_RESEND_INTERVALS[token.resendCount];
   const nextAllowedResendTime = token.lastSent.getTime() + interval;
   if (Date.now() < nextAllowedResendTime) {
-    return res.status(400).json({ message: "You must wait before requesting another verification email.", next: new Date(nextAllowedResendTime) });
+    return res.status(400).json({
+      message: "You must wait before requesting another verification email.",
+      next: new Date(nextAllowedResendTime),
+    });
   }
-  
+
   await updateEmailVerificationToken(token.token, {
     lastSent: new Date(),
     resendCount: {
