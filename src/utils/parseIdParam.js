@@ -2,8 +2,8 @@
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
-export function parseIdParam(req, res) {
-  const { id: idStr } = req.params;
+export function parseIdParam(req, res, paramName = 'id') {
+  const idStr = req.params[paramName];
   if (!idStr) {
     res.status(400).json({ message: 'Invalid request' });
     return 
