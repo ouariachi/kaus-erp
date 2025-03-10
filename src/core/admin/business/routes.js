@@ -1,11 +1,12 @@
-import { Router } from 'express';
-import { create } from './controllers/create.js';
-import { createAccessMiddleware, createUniqueMiddleware, createValidationDataMiddleware } from './middlewares/create.js';
-import { list } from './controllers/list.js';
-import { getBusiness } from './controllers/getBusiness.js';
-import { listUsers } from './controllers/listUsers.js';
-import { addUser } from './controllers/addUser.js';
-import { addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserValidationDataMiddleware } from './middlewares/addUser.js';
+import { Router } from "express";
+import { create } from "./controllers/create.js";
+import { createAccessMiddleware, createUniqueMiddleware, createValidationDataMiddleware } from "./middlewares/create.js";
+import { list } from "./controllers/list.js";
+import { getBusiness } from "./controllers/getBusiness.js";
+import { listUsers } from "./controllers/listUsers.js";
+import { addUser } from "./controllers/addUser.js";
+import { addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserValidationDataMiddleware } from "./middlewares/addUser.js";
+import { getBusinessUser } from "./controllers/getBusinessUser.js";
 
 const adminBusinessRouter = Router(); 
 
@@ -35,5 +36,8 @@ adminBusinessRouter.post(
   addUserUserExistsMiddleware,
   addUser
 ); 
+
+// Get a user by id
+adminBusinessRouter.get("/:id/users/:userId", getBusinessUser);
 
 export default adminBusinessRouter;
