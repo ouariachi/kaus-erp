@@ -2,7 +2,7 @@ import { getBusinessById } from "#src/models/Business";
 import { parseIdParam } from "#src/utils/parseIdParam";
 
 /** @type {import("express").RequestHandler} */
-export async function getById(req, res) {
+export async function getBusiness(req, res) {
   const id = parseIdParam(req, res);
   if (!id) {
     return;

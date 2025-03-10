@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { create } from './controllers/create.js';
 import { createAccessMiddleware, createUniqueMiddleware, createValidationDataMiddleware } from './middlewares/create.js';
 import { list } from './controllers/list.js';
-import { getById } from './controllers/getById.js';
+import { getBusiness } from './controllers/getBusiness.js';
 import { listUsers } from './controllers/listUsers.js';
 import { addUser } from './controllers/addUser.js';
 import { addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserValidationDataMiddleware } from './middlewares/addUser.js';
@@ -22,7 +22,7 @@ adminBusinessRouter.post(
 ); 
 
 // Get a business by id
-adminBusinessRouter.get('/:id', getById); 
+adminBusinessRouter.get('/:id', getBusiness); 
 
 // List users of a business
 adminBusinessRouter.get("/:id/users", listUsers); 
