@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createBusinessController } from "./controllers/createBusinessController.js";
-import { createAccessMiddleware, createUniqueMiddleware, createValidationDataMiddleware } from "./middlewares/createMiddlewares.js";
+import { createBusinessAccessMiddleware, createBusinessUniqueMiddleware, createBusinessValidationDataMiddleware } from "./middlewares/createBusinessMiddlewares.js";
 import { listBusinessesController } from "./controllers/listBusinessesController.js";
 import { getBusinessController } from "./controllers/getBusinessController.js";
 import { listUsersController } from "./controllers/listUsersController.js";
@@ -14,7 +14,7 @@ const adminBusinessRouter = Router();
 adminBusinessRouter.get("/", listBusinessesController);
 
 // Create a new business
-adminBusinessRouter.post("/", createAccessMiddleware, createValidationDataMiddleware, createUniqueMiddleware, createBusinessController);
+adminBusinessRouter.post("/", createBusinessAccessMiddleware, createBusinessValidationDataMiddleware, createBusinessUniqueMiddleware, createBusinessController);
 
 // Get a business by id
 adminBusinessRouter.get("/:id", getBusinessController);
