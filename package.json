@@ -6,15 +6,20 @@
   "scripts": {
     "start": "node .",
     "dev": "nodemon --ignore ./test/ .",
-    "test": "vitest"
+    "test": "vitest",
+    "lint": "eslint **/*.js"
   },
   "keywords": [],
   "author": "Ouariachi",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@eslint/js": "^9.22.0",
     "@types/express": "5.0.0",
-    "eslint": "9.20.1",
+    "eslint": "^9.20.1",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^16.0.0",
     "nodemon": "3.1.9",
     "prettier": "3.5.3",
     "prisma": "6.3.0",
