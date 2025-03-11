@@ -6,7 +6,7 @@ import { respondWithEmailLoginFailure } from "#src/utils/auth/login";
 const LOGIN_ATTEMPTS = 5;
 const LOGIN_TIMEOUT = 60 * 60 * 1000; // 1 hour
 
-export async function login(req, res) {
+export async function loginController(req, res) {
   const { email, password } = req.validatedData;
   if (!email || !password) {
     return res.status(400).json({ message: "Invalid request" });

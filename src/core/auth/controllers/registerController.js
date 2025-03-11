@@ -4,7 +4,7 @@ import { hashPassword } from "#src/utils/auth/password";
 import { respondWithEmailRegistrationFailure } from "#src/utils/auth/register";
 import { SMTP_ERROR_MESSAGES } from "#src/utils/email/smtpErrorMessages";
 
-export async function register(req, res) {
+export async function registerController(req, res) {
   const { email, password, firstname, lastname } = req.validatedData;
   if (await getUserByEmail(email)) {
     return respondWithEmailRegistrationFailure(res);

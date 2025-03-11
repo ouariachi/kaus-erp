@@ -1,4 +1,4 @@
-export function authenticate(req, res, next) {
+export function authenticateMiddleware(req, res, next) {
   if (!req.session.user) {
     return res.status(401).json({ message: "Unauthorized" });
   }

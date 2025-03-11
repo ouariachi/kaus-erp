@@ -2,7 +2,7 @@ import { prisma } from "#src/db";
 import { isSuperAdmin } from "#src/utils/auth/userRole";
 
 /** @type {import("express").RequestHandler} */
-export async function create(req, res) {
+export async function createBusinessController(req, res) {
   if (!isSuperAdmin(req.session.user)) {
     return res.status(403).json({ message: "Unauthorized" });
   }

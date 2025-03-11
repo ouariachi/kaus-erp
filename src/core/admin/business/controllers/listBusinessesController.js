@@ -2,7 +2,7 @@ import { getBusinesses } from "#src/models/Business";
 import { validatePagination } from "#src/utils/pagination";
 
 /** @type {import("express").RequestHandler} */
-export async function list(req, res) {
+export async function listBusinessesController(req, res) {
   let { limit: noValidatedLimit, page: noValidatedPage } = req.query;
   const { page, limit, success } = validatePagination({
     page: noValidatedPage,

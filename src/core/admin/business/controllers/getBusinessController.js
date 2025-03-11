@@ -1,17 +1,17 @@
-import { getBusinessUserById } from "#src/models/BusinessUser";
+import { getBusinessById } from "#src/models/Business";
 import { parseIdParam } from "#src/utils/parseIdParam";
 
 /** @type {import("express").RequestHandler} */
-export async function getBusinessUser(req, res) {
-  const id = parseIdParam(req, res, "userId");
+export async function getBusinessController(req, res) {
+  const id = parseIdParam(req, res);
   if (!id) {
     return;
   }
 
   try {
-    const result = await getBusinessUserById(id, { Business: false });
+    const result = await getBusinessById(id, { BusinessUsers: false });
     if (!result) {
-      return res.status(404).json({ message: "Business user not found" });
+      return res.status(404).json({ message: "Business not found" });
     }
     return res.status(200).json(result);
   } catch (error) {

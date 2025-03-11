@@ -5,7 +5,7 @@ import speakeasy from "speakeasy";
 import { HTTP_MESSAGES } from "#src/utils/httpMessages";
 
 /** @type {import('express').RequestHandler} */
-export async function enable2FA(req, res) {
+export async function enable2FAController(req, res) {
   const userid = req.session.user.id;
   const user = await getUserById(userid);
   if (!user) {
@@ -45,7 +45,7 @@ export async function enable2FA(req, res) {
 }
 
 /** @type {import('express').RequestHandler} */
-export async function confirm2FA(req, res) {
+export async function confirm2FAController(req, res) {
   const userid = req.session.user.id;
   const user = await getUserById(userid);
   if (!user) {
@@ -82,7 +82,7 @@ export async function confirm2FA(req, res) {
 }
 
 /** @type {import('express').RequestHandler} */
-export async function disable2FA(req, res) {
+export async function disable2FAController(req, res) {
   const userid = req.session.user.id;
   const user = await getUserById(userid);
   if (!user) {

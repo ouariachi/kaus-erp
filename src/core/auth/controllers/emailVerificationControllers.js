@@ -5,7 +5,7 @@ import { sendEmailVerificationToken } from "#src/services/auth/email";
 const HOUR = 60 * 60 * 1000; // 1 hour
 const EXPIRATION_TIME = 24 * HOUR;
 
-export async function emailVerification(req, res) {
+export async function emailVerificationController(req, res) {
   const { token, email } = req.query;
   if (!token || !email) {
     return res.status(400).json({ message: "Invalid request" });
@@ -39,7 +39,7 @@ export async function emailVerification(req, res) {
 
 const TOKEN_RESEND_INTERVALS = [0.5 * HOUR, 1 * HOUR, 5 * HOUR, 12 * HOUR];
 
-export async function resendEmailVerification(req, res) {
+export async function resendEmailVerificationController(req, res) {
   const { email } = req.query;
   if (!email) {
     return res.status(400).json({ message: "Invalid request" });

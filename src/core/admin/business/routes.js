@@ -1,23 +1,23 @@
 import { Router } from "express";
-import { create } from "./controllers/create.js";
-import { createAccessMiddleware, createUniqueMiddleware, createValidationDataMiddleware } from "./middlewares/create.js";
-import { list } from "./controllers/list.js";
-import { getBusiness } from "./controllers/getBusiness.js";
-import { listUsers } from "./controllers/listUsers.js";
-import { addUser } from "./controllers/addUser.js";
-import { addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserValidationDataMiddleware } from "./middlewares/addUser.js";
-import { getBusinessUser } from "./controllers/getBusinessUser.js";
+import { createBusinessController } from "./controllers/createBusinessController.js";
+import { createAccessMiddleware, createUniqueMiddleware, createValidationDataMiddleware } from "./middlewares/createMiddlewares.js";
+import { listBusinessesController } from "./controllers/listBusinessesController.js";
+import { getBusinessController } from "./controllers/getBusinessController.js";
+import { listUsersController } from "./controllers/listUsersController.js";
+import { addUserController } from "./controllers/addUserController.js";
+import { addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserValidationDataMiddleware } from "./middlewares/addUserMiddlewares.js";
+import { getBusinessUserController } from "./controllers/getBusinessUserController.js";
 
 const adminBusinessRouter = Router();
 
 // List all businesses
-adminBusinessRouter.get("/", list);
+adminBusinessRouter.get("/", listBusinessesController);
 
 // Create a new business
-adminBusinessRouter.post("/", createAccessMiddleware, createValidationDataMiddleware, createUniqueMiddleware, create);
+adminBusinessRouter.post("/", createAccessMiddleware, createValidationDataMiddleware, createUniqueMiddleware, createBusinessController);
 
 // Get a business by id
-adminBusinessRouter.get("/:id", getBusiness);
+adminBusinessRouter.get("/:id", getBusinessController);
 
 // Update a business
 // TODO: Implement update business
@@ -26,12 +26,18 @@ adminBusinessRouter.get("/:id", getBusiness);
 // TODO: Implement delete business
 
 // List users of a business
-adminBusinessRouter.get("/:id/users", listUsers);
+adminBusinessRouter.get("/:id/users", listUsersController);
 
 // Add a user to a business
-adminBusinessRouter.post("/:id/users", addUserValidationDataMiddleware, addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUser);
+adminBusinessRouter.post("/:id/users", addUserValidationDataMiddleware, addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserController);
 
 // Get a user by id
-adminBusinessRouter.get("/:id/users/:userId", getBusinessUser);
+adminBusinessRouter.get("/:id/users/:userId", getBusinessUserController);
+
+// Update a user
+// TODO: Implement update user
+
+// Delete a user
+// TODO: Implement delete user
 
 export default adminBusinessRouter;
