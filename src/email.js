@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-transporter.verify(function (error, success) {
+transporter.verify(function (error) {
   if (error) {
     console.log("Error while verifying connection");
     console.log(error);

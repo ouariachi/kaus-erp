@@ -1,6 +1,5 @@
 import { getUserByEmail } from "#src/models/User";
 import { businessExists } from "#src/services/business/validate";
-import { isAdmin } from "#src/utils/auth/userRole";
 import { getZodErrors } from "#src/utils/error";
 import { parseIdParam } from "#src/utils/parseIdParam";
 import { addUserSchema } from "../schemas/addUserSchema.js";
