@@ -1,5 +1,4 @@
 import { prisma } from "#src/db";
-import { Prisma } from "@prisma/client";
 
 const DEFAULT_INCLUDE = {
   Businesses: true,
@@ -7,7 +6,7 @@ const DEFAULT_INCLUDE = {
 
 /**
  * @param {string} email
- * @param {Prisma.UserInclude} [include]
+ * @param {import("@prisma/client").Prisma.UserInclude} [include]
  */
 export async function getUserByEmail(email, include) {
   return await prisma.user.findUnique({
@@ -20,7 +19,7 @@ export async function getUserByEmail(email, include) {
 
 /**
  * @param {number} id
- * @param {Prisma.UserInclude} [include]
+ * @param {import("@prisma/client").Prisma.UserInclude} [include]
  */
 export async function getUserById(id, include) {
   return await prisma.user.findUnique({
@@ -32,8 +31,8 @@ export async function getUserById(id, include) {
 }
 
 /**
- * @param {Prisma.UserCreateInput} where
- * @param {Prisma.UserInclude} [include]
+ * @param {import("@prisma/client").Prisma.UserCreateInput} where
+ * @param {import("@prisma/client").Prisma.UserInclude} [include]
  */
 export async function createUser(user, include) {
   return await prisma.user.create({
@@ -44,8 +43,8 @@ export async function createUser(user, include) {
 
 /**
  * @param {number} id
- * @param {Prisma.UserUpdateInput} data
- * @param {Prisma.UserInclude} [include]
+ * @param {import("@prisma/client").Prisma.UserUpdateInput} data
+ * @param {import("@prisma/client").Prisma.UserInclude} [include]
  */
 export async function updateUser(id, data, include) {
   return await prisma.user.update({

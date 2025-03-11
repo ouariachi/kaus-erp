@@ -1,7 +1,6 @@
 import { prisma } from "#src/db";
-import { Prisma } from "@prisma/client";
 
-/** @type {Prisma.BusinessUserInclude} */
+/** @type {import("@prisma/client").Prisma.BusinessUserInclude} */
 const DEFAULT_INCLUDE = {
   User: true,
   Business: true,
@@ -9,8 +8,8 @@ const DEFAULT_INCLUDE = {
 };
 
 /**
- * @param {Prisma.BusinessUserCreateInput} businessUser
- * @param {Prisma.BusinessUserInclude | undefined} include
+ * @param {import("@prisma/client").Prisma.BusinessUserCreateInput} businessUser
+ * @param {import("@prisma/client").Prisma.BusinessUserInclude | undefined} include
  */
 export async function createBusinessUser(businessUser, include) {
   return await prisma.businessUser.create({
@@ -21,7 +20,7 @@ export async function createBusinessUser(businessUser, include) {
 
 /**
  * @param {number} id
- * @param {Prisma.BusinessUserInclude | undefined} include
+ * @param {import("@prisma/client").Prisma.BusinessUserInclude | undefined} include
  */
 export async function getBusinessUserById(id, include) {
   return await prisma.businessUser.findUnique({
@@ -34,7 +33,7 @@ export async function getBusinessUserById(id, include) {
 
 /**
  * @param {number} userId
- * @param {Prisma.BusinessUserInclude | undefined} include
+ * @param {import("@prisma/client").Prisma.BusinessUserInclude | undefined} include
  */
 export async function getBusinessUserByUserId(userId, include) {
   return await prisma.businessUser.findFirst({
@@ -49,9 +48,9 @@ export async function getBusinessUserByUserId(userId, include) {
 
 /**
  * @param {Object} data
- * @param {Prisma.BusinessUserWhereInput} [data.where]
- * @param {Prisma.BusinessUserInclude | undefined} data.include
- * @param {Prisma.BusinessUserOrderByWithRelationInput | undefined} data.orderBy
+ * @param {import("@prisma/client").Prisma.BusinessUserWhereInput} [data.where]
+ * @param {import("@prisma/client").Prisma.BusinessUserInclude | undefined} data.include
+ * @param {import("@prisma/client").Prisma.BusinessUserOrderByWithRelationInput | undefined} data.orderBy
  * @param {number} [data.page=1]
  * @param {number} [data.limit=10]
  */
@@ -98,7 +97,7 @@ export async function getBusinessUsers({ where, include, orderBy, page = 1, limi
 
 /**
  * @param {number} businessId
- * @param {Prisma.BusinessUserInclude | undefined} include
+ * @param {import("@prisma/client").Prisma.BusinessUserInclude | undefined} include
  */
 export async function updateBusinessUser(id, data, include) {
   return await prisma.businessUser.update({

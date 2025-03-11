@@ -1,7 +1,6 @@
 import { prisma } from "#src/db";
-import { Prisma } from "@prisma/client";
 
-/** @type {Prisma.BusinessInclude} */
+/** @type {import("@prisma/client").Prisma.BusinessInclude} */
 const DEFAULT_INCLUDE = {
   BusinessUsers: {
     include: {
@@ -12,8 +11,8 @@ const DEFAULT_INCLUDE = {
 };
 
 /**
- * @param {Prisma.BusinessCreateInput} business
- * @param {Prisma.BusinessInclude | undefined} include
+ * @param {import("@prisma/client").Prisma.BusinessCreateInput} business
+ * @param {import("@prisma/client").Prisma.BusinessInclude | undefined} include
  */
 export async function createBusiness(business, include) {
   return await prisma.business.create({
@@ -24,7 +23,7 @@ export async function createBusiness(business, include) {
 
 /**
  * @param {number} id
- * @param {Prisma.BusinessInclude | undefined} include
+ * @param {import("@prisma/client").Prisma.BusinessInclude | undefined} include
  */
 export async function getBusinessById(id, include) {
   return await prisma.business.findUnique({
@@ -36,8 +35,8 @@ export async function getBusinessById(id, include) {
 }
 
 /**
- * @param {Prisma.BusinessWhereInput} where
- * @param {Prisma.BusinessInclude | undefined} include
+ * @param {import("@prisma/client").Prisma.BusinessWhereInput} where
+ * @param {import("@prisma/client").Prisma.BusinessInclude | undefined} include
  */
 export async function getBusinessWhere(where, include) {
   return await prisma.business.findFirst({
@@ -48,9 +47,9 @@ export async function getBusinessWhere(where, include) {
 
 /**
  * @param {Object} data
- * @param {Prisma.BusinessWhereInput} [data.where]
- * @param {Prisma.BusinessInclude | undefined} data.include
- * @param {Prisma.BusinessOrderByWithRelationInput | undefined} data.orderBy
+ * @param {import("@prisma/client").Prisma.BusinessWhereInput} [data.where]
+ * @param {import("@prisma/client").Prisma.BusinessInclude | undefined} data.include
+ * @param {import("@prisma/client").Prisma.BusinessOrderByWithRelationInput | undefined} data.orderBy
  * @param {number} [data.page=1]
  * @param {number} [data.limit=10]
  */
@@ -97,8 +96,8 @@ export async function getBusinesses({ where, include, orderBy, page = 1, limit =
 
 /**
  * @param {number} id
- * @param {Prisma.BusinessUpdateInput} data
- * @param {Prisma.BusinessInclude | undefined} include
+ * @param {import("@prisma/client").Prisma.BusinessUpdateInput} data
+ * @param {import("@prisma/client").Prisma.BusinessInclude | undefined} include
  */
 export async function updateBusiness(id, data, include) {
   return await prisma.business.update({
