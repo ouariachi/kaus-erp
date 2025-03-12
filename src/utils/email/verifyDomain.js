@@ -8,12 +8,11 @@ import dns from "node:dns";
  */
 export async function verifyDomain(domain) {
   if (domain.includes("@")) {
-    if (domain.startsWith("@")) {
-      domain = domain.slice(1);
-    } else {
-      domain = domain.split("@")[1];
-    }
+    const parts = domain.split("@");
+    domain = parts[parts.length - 1] || null;
   }
+  
+  if (!domain) return false;
 
   return new Promise((resolve) => {
     // Local domains are always valid
