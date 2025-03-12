@@ -2,6 +2,7 @@ import { businessExists } from "#src/services/business/validate";
 import { isSuperAdmin } from "#src/utils/auth/userRole";
 import { verifyDomain } from "#src/utils/email/verifyDomain";
 import { getZodErrors } from "#src/utils/error";
+import { parseStringArrays } from "#src/utils/parseStringArrays";
 import { createBusinessSchema } from "../schemas/createBusinessSchema.js";
 
 /** @type {import("express").RequestHandler} */
@@ -14,13 +15,8 @@ export async function createBusinessAccessMiddleware(req, res, next) {
 
 /** @type {import("express").RequestHandler} */
 export async function createBusinessValidationDataMiddleware(req, res, next) {
-  if (req.body.emailDomains && typeof req.body.emailDomains === "string") {
-    req.body.emailDomains = req.body.emailDomains.split(",");
-  }
-
-  if (req.body.allowedEmails && typeof req.body.allowedEmails === "string") {
-    req.body.allowedEmails = req.body.allowedEmails.split(",");
-  }
+  req.body.emailDomains = parseStringArrays(req.body.emailDomains);
+  req.body.allowedEmails = parseStringArrays(req.body.allowedEmails);
 
   const createBusinessSchemaResult = createBusinessSchema.safeParse(req.body);
   if (!createBusinessSchemaResult.success) {
