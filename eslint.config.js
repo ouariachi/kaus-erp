@@ -1,5 +1,4 @@
 import js from "@eslint/js";
-import prettierConfig from "eslint-config-prettier";
 import globals from "globals";
 
 /**
@@ -7,7 +6,6 @@ import globals from "globals";
  */
 export default [
   js.configs.recommended,
-  prettierConfig,
   {
     ignores: ["node_modules", "dist", "build"],
   },
