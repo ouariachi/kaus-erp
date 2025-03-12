@@ -2,6 +2,7 @@ import { getUserByEmail, updateUser } from "#src/models/User";
 import { verify2FASecret } from "#src/utils/auth/2FA";
 import { verifyPassword } from "#src/utils/auth/password";
 import { respondWithEmailLoginFailure } from "#src/utils/auth/login";
+import { sleep } from "#src/utils/sleep";
 
 const LOGIN_ATTEMPTS = 5;
 const LOGIN_TIMEOUT = 60 * 60 * 1000; // 1 hour
@@ -14,6 +15,10 @@ export async function loginController(req, res) {
 
   const user = await getUserByEmail(email);
   if (!user) {
+    /**
+     *  Sleep for 50ms to avoid time-based email enumeration
+     */
+    await sleep(50);
     return respondWithEmailLoginFailure(res);
   }
 
