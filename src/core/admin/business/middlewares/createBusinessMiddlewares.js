@@ -23,14 +23,19 @@ export async function createBusinessValidationDataMiddleware(req, res, next) {
     return res.status(400).json({ errors: getZodErrors(createBusinessSchemaResult.error) });
   }
 
-  for (const domain of createBusinessSchemaResult.data.emailDomains) {
-    const isValid = await verifyDomain(domain);
-    if (!isValid) {
-      return res.status(400).json({ message: `Invalid email domain: ${domain}` });
-    }
+  req.validatedData = createBusinessSchemaResult.data;
+  
+  const domainChecks = await Promise.all(
+    req.validatedData.emailDomains.map(async (domain) => ({
+      domain,
+      isValid: await verifyDomain(domain),
+    }))
+  );
+  const invalidDomains = domainChecks.filter(({ isValid }) => !isValid).map(({ domain }) => domain);
+  if (invalidDomains.length > 0) {
+    return res.status(400).json({ message: "Invalid email domains", domains: invalidDomains });
   }
 
-  req.validatedData = createBusinessSchemaResult.data;
   next();
 }
 
