@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
 
-sudo /usr/local/bin/CreateBackup.sh "daily"
+sudo bash "/usr/local/bin/CreateBackup.sh" "daily"
