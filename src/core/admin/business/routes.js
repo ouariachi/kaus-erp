@@ -9,6 +9,8 @@ import { addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserVa
 import { getBusinessUserController } from "./controllers/getBusinessUserController.js";
 import { updateBusinessAccessMiddleware, updateBusinessExistsMiddleware, updateBusinessUniqueMiddleware, updateBusinessValidationDataMiddleware } from "./middlewares/updateBusinessMiddlewares.js";
 import { updateBusinessController } from "./controllers/updateBusinessController.js";
+import { updateBusinessStatusAccessMiddleware, updateBusinessStatusExistsMiddleware, updateBusinessStatusValidationDataMiddleware } from "./middlewares/updateBusinessStatusMiddlewares.js";
+import { updateBusinessStatusController } from "./controllers/updateBusinessStatusController.js";
 
 const adminBusinessRouter = Router();
 
@@ -33,6 +35,14 @@ adminBusinessRouter.patch("/:id",
   updateBusinessExistsMiddleware, 
   updateBusinessUniqueMiddleware, 
   updateBusinessController
+);
+
+// Update status of a business
+adminBusinessRouter.patch("/:id/status",
+  updateBusinessStatusAccessMiddleware,
+  updateBusinessStatusValidationDataMiddleware,
+  updateBusinessStatusExistsMiddleware,
+  updateBusinessStatusController
 );
 
 // Delete a business
