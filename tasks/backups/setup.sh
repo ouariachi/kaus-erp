@@ -23,6 +23,9 @@ echo "PGDATABASE=\"$DB_NAME\"" >> "$LOCAL_ENV_PATH"
 echo "PGPORT=\"$DB_PORT\"" >> "$LOCAL_ENV_PATH"
 echo "PGPASSWORD=\"$DB_PASSWORD\"" >> "$LOCAL_ENV_PATH"
 
+# Eliminar archivos de configuración anteriores
+sudo rm -f "$SCRIPT_PATH/$CREATE_BUCKUP_SCRIPT" "$ENV_PATH/kaus-erp-backup-env"
+
 sudo cp "$LOCALPATH/$CREATE_BUCKUP_SCRIPT" "$SCRIPT_PATH/$CREATE_BUCKUP_SCRIPT"
 sudo cp "$LOCAL_ENV_PATH" "$ENV_PATH/kaus-erp-backup-env"
 
