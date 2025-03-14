@@ -1,6 +1,6 @@
 import { getBusinessWhere } from "#src/models/Business";
 
-export async function businessExists(data) {
+export async function businessExists(data, excludeID) {
   const business = await getBusinessWhere(
     {
       OR: [
@@ -10,11 +10,13 @@ export async function businessExists(data) {
         { phone: { contains: data.phone, mode: "insensitive" } },
         { email: { contains: data.email, mode: "insensitive" } },
       ],
+      ...(excludeID ? { NOT: { id: excludeID } } : {}),
     },
     {
       BusinessUsers: false,
     },
   );
+
   return !!business;
 }
 
