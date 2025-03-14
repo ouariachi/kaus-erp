@@ -1,12 +1,9 @@
-import { prisma } from "#src/db";
+import { createBusiness } from "#src/models/Business";
 
 /** @type {import("express").RequestHandler} */
 export async function createBusinessController(req, res) {
   try {
-    const newBusiness = await prisma.business.create({
-      data: req.validatedData,
-    });
-
+    const newBusiness = await createBusiness(req.validatedData);
     if (!newBusiness) {
       return res.status(500).json({ message: "Error creating business" });
     }
