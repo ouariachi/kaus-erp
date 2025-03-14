@@ -1,3 +1,3 @@
 #!/bin/bash
 
-$(pwd)/backups/setup.sh
+sudo bash "$(pwd)/backups/setup.sh"
