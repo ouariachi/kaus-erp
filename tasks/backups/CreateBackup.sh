@@ -1,8 +1,31 @@
 #!/bin/bash
+source /etc/default/kaus-erp-backup-env
+
 BACKUPTYPE=$1
 
-if [ -z "$PGHOST" ] || [ -z "$PGUSER" ] || [ -z "$PGDATABASE" ] || [ -z "$PGPASSWORD" ] || [ -z "$BACKUPTYPE" ]; then
-  echo "Faltan parámetros: PGHOST, PGUSER, PGDATABASE, PGPASSWORD, BACKUPTYPE"
+# Comprobar parametros uno a uno
+if [ -z "$PGHOST" ]; then
+  echo "Falta la variable de entorno PGHOST"
+  exit 1
+fi
+
+if [ -z "$PGUSER" ]; then
+  echo "Falta la variable de entorno PGUSER"
+  exit 1
+fi
+
+if [ -z "$PGDATABASE" ]; then
+  echo "Falta la variable de entorno PGDATABASE"
+  exit 1
+fi
+
+if [ -z "$PGPASSWORD" ]; then
+  echo "Falta la variable de entorno PGPASSWORD"
+  exit 1
+fi
+
+if [ -z "$BACKUPTYPE" ]; then
+  echo "Falta el parámetro BACKUPTYPE"
   exit 1
 fi
 

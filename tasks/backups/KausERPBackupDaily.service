@@ -7,7 +7,6 @@ Type=oneshot
 ExecStart=/usr/local/bin/KausERPBackupDaily.sh
 User=root
 Group=root
-EnvironmentFiles=/etc/default/kaus-erp-backup-env
 
 [Install]
 WantedBy=multi-user.target

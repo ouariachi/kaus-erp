@@ -1,3 +1,4 @@
 #!/bin/bash
+set -x
 
-/usr/local/bin/CreateBackup.sh "weekly"
+sudo /usr/local/bin/CreateBackup.sh "weekly"

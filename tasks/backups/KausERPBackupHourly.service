@@ -7,7 +7,6 @@ Type=oneshot
 ExecStart=/usr/local/bin/KausERPBackupHourly.sh
 User=root
 Group=root
-EnvironmentFiles=/etc/default/kaus-erp-backup-env
 
 [Install]
 WantedBy=multi-user.target

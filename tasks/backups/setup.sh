@@ -17,11 +17,11 @@ read -p "Introduce el puerto de la base de datos: " DB_PORT
 read -p "Introduce la contraseña de la base de datos: " DB_PASSWORD
 
 # Crear archivos de configuración
-echo "PGHOST=$DB_HOST" >> "$LOCAL_ENV_PATH"
-echo "PGUSER=$DB_USER" >> "$LOCAL_ENV_PATH"
-echo "PGDATABASE=$DB_NAME" >> "$LOCAL_ENV_PATH"
-echo "PGPORT=$DB_PORT" >> "$LOCAL_ENV_PATH"
-echo "PGPASSWORD=$DB_PASSWORD" >> "$LOCAL_ENV_PATH"
+echo "PGHOST=\"$DB_HOST\"" >> "$LOCAL_ENV_PATH"
+echo "PGUSER=\"$DB_USER\"" >> "$LOCAL_ENV_PATH"
+echo "PGDATABASE=\"$DB_NAME\"" >> "$LOCAL_ENV_PATH"
+echo "PGPORT=\"$DB_PORT\"" >> "$LOCAL_ENV_PATH"
+echo "PGPASSWORD=\"$DB_PASSWORD\"" >> "$LOCAL_ENV_PATH"
 
 sudo cp "$LOCALPATH/$CREATE_BUCKUP_SCRIPT" "$SCRIPT_PATH/$CREATE_BUCKUP_SCRIPT"
 sudo cp "$LOCAL_ENV_PATH" "$ENV_PATH/kaus-erp-backup-env"
