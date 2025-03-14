@@ -1,0 +1,9 @@
+[Unit]
+Description=Ejecutar KausERPBackupWeekly automáticamente todos los jueves a las 19:00
+
+[Timer]
+OnCalendar=Thu 19:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Backup de KausERP semanal automático - KausERPBackupWeekly
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/KausERPBackupWeekly.sh
+User=root
+Group=root
+EnvironmentFiles=/etc/default/kaus-erp-backup-env
+
+[Install]
+WantedBy=multi-user.target
