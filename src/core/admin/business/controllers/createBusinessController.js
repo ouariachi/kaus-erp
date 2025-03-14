@@ -1,12 +1,7 @@
 import { prisma } from "#src/db";
-import { isSuperAdmin } from "#src/utils/auth/userRole";
 
 /** @type {import("express").RequestHandler} */
 export async function createBusinessController(req, res) {
-  if (!isSuperAdmin(req.session.user)) {
-    return res.status(403).json({ message: "Unauthorized" });
-  }
-
   try {
     const newBusiness = await prisma.business.create({
       data: req.validatedData,
