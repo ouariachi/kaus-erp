@@ -43,7 +43,7 @@ if [ ! -d "$BACKUP_DIR" ]; then
 fi
 
 echo "Verificando existencia de la base de datos $PGDATABASE..." | tee -a "$LOG_FILE" > /dev/null
-pg_isready -h "$PGHOST" -U "$PGUSER" -p "$PGPORT" -d "$PGDATABASE" >> "$LOG_FILE" 2>&1
+PGPASSWORD="$PGPASSWORD" pg_isready -h "$PGHOST" -U "$PGUSER" -p "$PGPORT" -d "$PGDATABASE" >> "$LOG_FILE" 2>&1
 
 if [ $? -ne 0 ]; then
   echo "La base de datos $PGDATABASE no está disponible en $PGHOST. Abortando." | tee -a "$LOG_FILE" > /dev/null
@@ -51,7 +51,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Realizando copia de seguridad de la base de datos $PGDATABASE..." | tee -a "$LOG_FILE" > /dev/null
-pg_dump -h "$PGHOST" -U "$PGUSER" -p "$PGPORT" "$PGDATABASE" >> "$BACKUP_FILE" 2>> "$LOG_FILE"
+PGPASSWORD="$PGPASSWORD" pg_dump -h "$PGHOST" -U "$PGUSER" -p "$PGPORT" "$PGDATABASE" >> "$BACKUP_FILE" 2>> "$LOG_FILE"
 
 if [ $? -eq 0 ]; then
   echo "Copia de seguridad completada: $BACKUP_FILE" | tee -a "$LOG_FILE" > /dev/null
