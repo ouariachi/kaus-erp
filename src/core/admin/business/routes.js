@@ -7,6 +7,8 @@ import { listUsersController } from "./controllers/listUsersController.js";
 import { addUserController } from "./controllers/addUserController.js";
 import { addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserValidationDataMiddleware } from "./middlewares/addUserMiddlewares.js";
 import { getBusinessUserController } from "./controllers/getBusinessUserController.js";
+import { updateBusinessAccessMiddleware, updateBusinessExistsMiddleware, updateBusinessUniqueMiddleware, updateBusinessValidationDataMiddleware } from "./middlewares/updateBusinessMiddlewares.js";
+import { updateBusinessController } from "./controllers/updateBusinessController.js";
 
 const adminBusinessRouter = Router();
 
@@ -14,13 +16,24 @@ const adminBusinessRouter = Router();
 adminBusinessRouter.get("/", listBusinessesController);
 
 // Create a new business
-adminBusinessRouter.post("/", createBusinessAccessMiddleware, createBusinessValidationDataMiddleware, createBusinessUniqueMiddleware, createBusinessController);
+adminBusinessRouter.post("/", 
+  createBusinessAccessMiddleware, 
+  createBusinessValidationDataMiddleware, 
+  createBusinessUniqueMiddleware, 
+  createBusinessController
+);
 
 // Get a business by id
 adminBusinessRouter.get("/:id", getBusinessController);
 
 // Update a business
-// TODO: Implement update business
+adminBusinessRouter.patch("/:id", 
+  updateBusinessAccessMiddleware, 
+  updateBusinessValidationDataMiddleware, 
+  updateBusinessExistsMiddleware, 
+  updateBusinessUniqueMiddleware, 
+  updateBusinessController
+);
 
 // Delete a business
 // TODO: Implement delete business
@@ -29,7 +42,12 @@ adminBusinessRouter.get("/:id", getBusinessController);
 adminBusinessRouter.get("/:id/users", listUsersController);
 
 // Add a user to a business
-adminBusinessRouter.post("/:id/users", addUserValidationDataMiddleware, addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserController);
+adminBusinessRouter.post("/:id/users", 
+  addUserValidationDataMiddleware, 
+  addUserBusinessExistsMiddleware, 
+  addUserUserExistsMiddleware, 
+  addUserController
+);
 
 // Get a user by id
 adminBusinessRouter.get("/:id/users/:userId", getBusinessUserController);
