@@ -14,14 +14,23 @@ fi
 RETENTION_DAYS=30
 echo "Eliminando copias de seguridad de más de $RETENTION_DAYS días..."
 
-# Formato de nombre de backup: database-backup-YYYYMMDDHHMM.sql
-
 clean_old_backups() {
   local backup_dir=$1
   if [ -d "$backup_dir" ]; then
     echo "Limpiando $backup_dir..."
-    find "$backup_dir" -name "$PGDATABASE-backup-*.sql" -type f -mtime +$RETENTION_DAYS -exec rm -f {} \;
-    find "$backup_dir" -name "backup-log-*.log" -type f -mtime +$RETENTION_DAYS -exec rm -f {} \;
+    
+    # Buscar y eliminar archivos .sql
+    find "$backup_dir" -name "$PGDATABASE-backup-*.sql" -type f -mtime +$RETENTION_DAYS | while read file; do
+      echo "Eliminando: $file"
+      rm -f "$file"
+    done
+
+    # Buscar y eliminar archivos de log
+    find "$backup_dir" -name "backup-log-*.log" -type f -mtime +$RETENTION_DAYS | while read file; do
+      echo "Eliminando: $file"
+      rm -f "$file"
+    done
+
   else
     echo "Directorio $backup_dir no encontrado, omitiendo..."
   fi
