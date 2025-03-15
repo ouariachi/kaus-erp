@@ -10,8 +10,9 @@ if [ -z "$PGDATABASE" ]; then
   exit 1
 fi
 
-# Número de días después de los que se elimina el backup
 RETENTION_DAYS=30
+TODAY=$(date +"%Y%m%d")
+
 echo "Eliminando copias de seguridad de más de $RETENTION_DAYS días..."
 
 clean_old_backups() {
@@ -19,29 +20,49 @@ clean_old_backups() {
   if [ -d "$backup_dir" ]; then
     echo "Limpiando $backup_dir..."
 
-    # Buscar y eliminar archivos .sql
+    # Contadores de archivos eliminados
     DELETED_BACKUPS_COUNT=0
-    echo "Buscando archivos: $PGDATABASE-backup-*.sql..." 
-    find "$backup_dir" -name "$PGDATABASE-backup-*.sql" -type f -mtime +$RETENTION_DAYS | while read file; do
-      echo "Eliminando: $file"
-      rm -f "$file"
-      DELETED_BACKUPS_COUNT=$((DELETED_BACKUPS_COUNT+1))
-    done
-
-    # Buscar y eliminar archivos de log
     DELETED_LOGS_COUNT=0
-    echo "Buscando archivos: $PGDATABASE-backup-log-*.log..."
-    find "$backup_dir" -name "$PGDATABASE-backup-log-*.log" -type f -mtime +$RETENTION_DAYS | while read file; do
-      echo "Eliminando: $file"
-      rm -f "$file"
-      DELETED_LOGS_COUNT=$((DELETED_LOGS_COUNT+1))
+
+    # Buscar archivos .sql
+    echo "Buscando archivos: $PGDATABASE-backup-*.sql..." 
+    for file in "$backup_dir"/"$PGDATABASE"-backup-*.sql; do
+      filename=$(basename "$file")
+      filedate=$(echo "$filename" | grep -oP '\d{12}' | head -1) # Extraer YYYYMMDDHHMM
+      filedate_short=${filedate:0:8} # Obtener YYYYMMDD
+
+      if [[ "$filedate_short" =~ ^[0-9]{8}$ ]]; then
+        diff_days=$(( ( $(date -d "$TODAY" +%s) - $(date -d "$filedate_short" +%s) ) / 86400 ))
+        if [ "$diff_days" -gt "$RETENTION_DAYS" ]; then
+          echo "Eliminando: $file ($diff_days días de antigüedad)"
+          rm -f "$file"
+          ((DELETED_BACKUPS_COUNT++))
+        fi
+      fi
     done
 
-    if [ $DELETED_BACKUPS_COUNT -gt 0 ]; then
+    # Buscar archivos de log
+    echo "Buscando archivos: backup-log-*.log..."
+    for file in "$backup_dir"/backup-log-*.log; do
+      filename=$(basename "$file")
+      filedate=$(echo "$filename" | grep -oP '\d{12}' | head -1)
+      filedate_short=${filedate:0:8}
+
+      if [[ "$filedate_short" =~ ^[0-9]{8}$ ]]; then
+        diff_days=$(( ( $(date -d "$TODAY" +%s) - $(date -d "$filedate_short" +%s) ) / 86400 ))
+        if [ "$diff_days" -gt "$RETENTION_DAYS" ]; then
+          echo "Eliminando: $file ($diff_days días de antigüedad)"
+          rm -f "$file"
+          ((DELETED_LOGS_COUNT++))
+        fi
+      fi
+    done
+
+    if [ "$DELETED_BACKUPS_COUNT" -gt 0 ]; then
       echo "Se eliminaron $DELETED_BACKUPS_COUNT archivos de copias de seguridad."
     fi
     
-    if [ $DELETED_LOGS_COUNT -gt 0 ]; then
+    if [ "$DELETED_LOGS_COUNT" -gt 0 ]; then
       echo "Se eliminaron $DELETED_LOGS_COUNT archivos de registros de copias de seguridad."
     fi
   else
