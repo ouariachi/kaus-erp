@@ -1,7 +1,8 @@
 #!/bin/bash
 
-NAMES=("KausERPBackupWeekly" "KausERPBackupDaily" "KausERPBackupHourly")
+NAMES=("KausERPBackupWeekly" "KausERPBackupDaily" "KausERPBackupHourly" "KausERPDeleteOldBackups")
 CREATE_BUCKUP_SCRIPT="CreateBackup.sh"
+DELETE_BUCKUP_SCRIPT="DeleteBackups.sh"
 
 TIMER_PATH="/etc/systemd/system"
 SCRIPT_PATH="/usr/local/bin"
@@ -9,7 +10,7 @@ ENV_PATH="/etc/default"
 LOCALPATH="$(pwd)/backups"
 LOCAL_ENV_PATH="$LOCALPATH/kaus-erp-backup-env"
 
-# Solicitar confirmación antes de continuar
+# Solicitar datos antes de continuar
 read -p "Introduce el host de la base de datos: " DB_HOST
 read -p "Introduce el nombre de usuario de la base de datos: " DB_USER
 read -p "Introduce el nombre de la base de datos: " DB_NAME
@@ -24,9 +25,10 @@ echo "PGPORT=\"$DB_PORT\"" >> "$LOCAL_ENV_PATH"
 echo "PGPASSWORD=\"$DB_PASSWORD\"" >> "$LOCAL_ENV_PATH"
 
 # Eliminar archivos de configuración anteriores
-sudo rm -f "$SCRIPT_PATH/$CREATE_BUCKUP_SCRIPT" "$ENV_PATH/kaus-erp-backup-env"
+sudo rm -f "$SCRIPT_PATH/$CREATE_BUCKUP_SCRIPT" "$SCRIPT_PATH/$DELETE_BUCKUP_SCRIPT" "$ENV_PATH/kaus-erp-backup-env"
 
 sudo cp "$LOCALPATH/$CREATE_BUCKUP_SCRIPT" "$SCRIPT_PATH/$CREATE_BUCKUP_SCRIPT"
+sudo cp "$LOCALPATH/$DELETE_BUCKUP_SCRIPT" "$SCRIPT_PATH/$DELETE_BUCKUP_SCRIPT"
 sudo cp "$LOCAL_ENV_PATH" "$ENV_PATH/kaus-erp-backup-env"
 
 for NAME in "${NAMES[@]}"; do

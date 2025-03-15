@@ -1,0 +1,12 @@
+[Unit]
+Description=Eliminar backups antiguos de KausERP automáticamente - KausERPDeleteOldBackups 
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/KausERPDeleteOldBackups.sh
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Ejecutar KausERPDeleteOldBackups automáticamente todos los días a las 19:15
+
+[Timer]
+OnCalendar=*-*-* 19:15:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
