@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
 
-sudo bash "/usr/local/bin/DeleteBuckups.sh"
+sudo bash "/usr/local/bin/DeleteBackups.sh"
