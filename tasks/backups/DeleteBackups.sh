@@ -18,19 +18,32 @@ clean_old_backups() {
   local backup_dir=$1
   if [ -d "$backup_dir" ]; then
     echo "Limpiando $backup_dir..."
-    
+
     # Buscar y eliminar archivos .sql
+    DELETED_BACKUPS_COUNT=0
+    echo "Buscando archivos: $PGDATABASE-backup-*.sql..." 
     find "$backup_dir" -name "$PGDATABASE-backup-*.sql" -type f -mtime +$RETENTION_DAYS | while read file; do
       echo "Eliminando: $file"
       rm -f "$file"
+      DELETED_BACKUPS_COUNT=$((DELETED_BACKUPS_COUNT+1))
     done
 
     # Buscar y eliminar archivos de log
-    find "$backup_dir" -name "backup-log-*.log" -type f -mtime +$RETENTION_DAYS | while read file; do
+    DELETED_LOGS_COUNT=0
+    echo "Buscando archivos: $PGDATABASE-backup-log-*.log..."
+    find "$backup_dir" -name "$PGDATABASE-backup-log-*.log" -type f -mtime +$RETENTION_DAYS | while read file; do
       echo "Eliminando: $file"
       rm -f "$file"
+      DELETED_LOGS_COUNT=$((DELETED_LOGS_COUNT+1))
     done
 
+    if [ $DELETED_BACKUPS_COUNT -gt 0 ]; then
+      echo "Se eliminaron $DELETED_BACKUPS_COUNT archivos de copias de seguridad."
+    fi
+    
+    if [ $DELETED_LOGS_COUNT -gt 0 ]; then
+      echo "Se eliminaron $DELETED_LOGS_COUNT archivos de registros de copias de seguridad."
+    fi
   else
     echo "Directorio $backup_dir no encontrado, omitiendo..."
   fi

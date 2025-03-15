@@ -34,7 +34,7 @@ PGPORT=${PGPORT:-5432}
 BACKUP_DIR="/var/backups/erp/$BACKUPTYPE" # daily, weekly, hourly
 DATE=$(date +"%Y%m%d%H%M")
 BACKUP_FILE="$BACKUP_DIR/$PGDATABASE-backup-$DATE.sql"
-LOG_FILE="$BACKUP_DIR/backup-log-$DATE.log"
+LOG_FILE="$BACKUP_DIR/$PGDATABASE-backup-log-$DATE.log"
 
 if [ ! -d "$BACKUP_DIR" ]; then
   echo "Directorio de backup no encontrado: $BACKUP_DIR"
