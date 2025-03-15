@@ -30,17 +30,31 @@ if [ -z "$BACKUPTYPE" ]; then
 fi
 
 PGPORT=${PGPORT:-5432}
+DATE=$(date +"%Y%m%d%H%M")
 
 BACKUP_DIR="/var/backups/erp/$BACKUPTYPE" # daily, weekly, hourly
-DATE=$(date +"%Y%m%d%H%M")
-BACKUP_FILE="$BACKUP_DIR/$PGDATABASE-backup-$DATE.sql"
-LOG_FILE="$BACKUP_DIR/$PGDATABASE-backup-log-$DATE.log"
-
 if [ ! -d "$BACKUP_DIR" ]; then
   echo "Directorio de backup no encontrado: $BACKUP_DIR"
   echo "Creando directorio..."
   mkdir -p "$BACKUP_DIR"
 fi
+
+LOGS_BASE_DIR="/var/backups/erp/logs"
+if [ ! -d "$LOGS_BASE_DIR" ]; then
+  echo "Directorio de logs no encontrado: $LOGS_BASE_DIR"
+  echo "Creando directorio..."
+  mkdir -p "$LOGS_BASE_DIR"
+fi
+
+LOGS_DIR="$LOGS_BASE_DIR/$BACKUPTYPE"
+if [ ! -d "$LOGS_DIR" ]; then
+  echo "Directorio de logs no encontrado: $LOGS_DIR"
+  echo "Creando directorio..."
+  mkdir -p "$LOGS_DIR"
+fi
+
+BACKUP_FILE="$BACKUP_DIR/$PGDATABASE-backup-$DATE.sql"
+LOG_FILE="$LOGS_DIR/$PGDATABASE-backup-log-$DATE.log"
 
 echo "Verificando existencia de la base de datos $PGDATABASE..." | tee -a "$LOG_FILE" > /dev/null
 PGPASSWORD="$PGPASSWORD" pg_isready -h "$PGHOST" -U "$PGUSER" -p "$PGPORT" -d "$PGDATABASE" >> "$LOG_FILE" 2>&1
