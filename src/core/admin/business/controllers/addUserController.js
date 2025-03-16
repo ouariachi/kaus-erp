@@ -10,7 +10,6 @@ export async function addUserController(req, res) {
     const businessUser = await createBusinessUser({
       role,
       status: BusinessUserStatus.ACTIVE,
-      Modules: req.validatedData.modules,
       Business: {
         connect: {
           id: businessId,

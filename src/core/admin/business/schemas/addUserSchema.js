@@ -1,4 +1,4 @@
-import { BusinessUserRole, Modules } from "@prisma/client";
+import { BusinessUserRole } from "@prisma/client";
 import { z } from "zod";
 
 export const addUserSchema = z.object({
@@ -17,11 +17,4 @@ export const addUserSchema = z.object({
     })
     .optional()
     .default(BusinessUserRole.USER),
-
-  modules: z
-    .nativeEnum(Modules, {
-      required_error: "Modules is required",
-      invalid_type_error: "Invalid modules",
-    })
-    .optional(),
 });
