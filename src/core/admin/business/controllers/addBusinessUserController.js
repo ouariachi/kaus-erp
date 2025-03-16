@@ -2,7 +2,7 @@ import { createBusinessUser } from "#src/models/BusinessUser";
 import { BusinessUserStatus } from "@prisma/client";
 
 /** @type {import("express").RequestHandler} */
-export async function addUserController(req, res) {
+export async function addBusinessUserController(req, res) {
   const { email, role } = req.validatedData;
   const businessId = req.businessId;
 

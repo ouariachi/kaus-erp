@@ -1,7 +1,7 @@
 import { BusinessUserRole } from "@prisma/client";
 import { z } from "zod";
 
-export const addUserSchema = z.object({
+export const addBusinessUserSchema = z.object({
   email: z
     .string({
       required_error: "Email is required",

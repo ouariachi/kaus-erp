@@ -4,8 +4,8 @@ import { createBusinessAccessMiddleware, createBusinessUniqueMiddleware, createB
 import { listBusinessesController } from "./controllers/listBusinessesController.js";
 import { getBusinessController } from "./controllers/getBusinessController.js";
 import { listUsersController } from "./controllers/listUsersController.js";
-import { addUserController } from "./controllers/addUserController.js";
-import { addUserBusinessExistsMiddleware, addUserUserExistsMiddleware, addUserValidationDataMiddleware } from "./middlewares/addUserMiddlewares.js";
+import { addBusinessUserController } from "./controllers/addBusinessUserController.js";
+import { addBusinessUserBusinessExistsMiddleware, addBusinessUserUserExistsMiddleware, addBusinessUserValidationDataMiddleware } from "./middlewares/addBusinessUserMiddlewares.js";
 import { getBusinessUserController } from "./controllers/getBusinessUserController.js";
 import { updateBusinessAccessMiddleware, updateBusinessExistsMiddleware, updateBusinessUniqueMiddleware, updateBusinessValidationDataMiddleware } from "./middlewares/updateBusinessMiddlewares.js";
 import { updateBusinessController } from "./controllers/updateBusinessController.js";
@@ -59,10 +59,10 @@ adminBusinessRouter.get("/:id/users", listUsersController);
 
 // Add a user to a business
 adminBusinessRouter.post("/:id/users", 
-  addUserValidationDataMiddleware, 
-  addUserBusinessExistsMiddleware, 
-  addUserUserExistsMiddleware, 
-  addUserController
+  addBusinessUserValidationDataMiddleware, 
+  addBusinessUserBusinessExistsMiddleware, 
+  addBusinessUserUserExistsMiddleware, 
+  addBusinessUserController
 );
 
 // Get a user by id

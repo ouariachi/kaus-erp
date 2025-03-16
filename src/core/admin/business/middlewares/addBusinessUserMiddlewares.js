@@ -2,27 +2,27 @@ import { getUserByEmail } from "#src/models/User";
 import { businessExists } from "#src/services/business/validate";
 import { getZodErrors } from "#src/utils/error";
 import { parseIdParam } from "#src/utils/parseIdParam";
-import { addUserSchema } from "../schemas/addUserSchema.js";
+import { addBusinessUserSchema } from "../schemas/addBusinessUserSchema.js";
 
 /** @type {import("express").RequestHandler} */
-export async function addUserValidationDataMiddleware(req, res, next) {
+export async function addBusinessUserValidationDataMiddleware(req, res, next) {
   const id = parseIdParam(req, res);
   if (!id) {
     return;
   }
   req.businessId = id;
 
-  const addUserSchemaResult = addUserSchema.safeParse(req.body);
-  if (!addUserSchemaResult.success) {
-    return res.status(400).json({ errors: getZodErrors(addUserSchemaResult.error) });
+  const addBusinessUserSchemaResult = addBusinessUserSchema.safeParse(req.body);
+  if (!addBusinessUserSchemaResult.success) {
+    return res.status(400).json({ errors: getZodErrors(addBusinessUserSchemaResult.error) });
   }
 
-  req.validatedData = addUserSchemaResult.data;
+  req.validatedData = addBusinessUserSchemaResult.data;
   next();
 }
 
 /** @type {import("express").RequestHandler} */
-export async function addUserBusinessExistsMiddleware(req, res, next) {
+export async function addBusinessUserBusinessExistsMiddleware(req, res, next) {
   if (!(await businessExists({ id: req.businessId }))) {
     return res.status(400).json({ message: "Business does not exist" });
   }
@@ -30,7 +30,7 @@ export async function addUserBusinessExistsMiddleware(req, res, next) {
 }
 
 /** @type {import("express").RequestHandler} */
-export async function addUserUserExistsMiddleware(req, res, next) {
+export async function addBusinessUserUserExistsMiddleware(req, res, next) {
   const { email } = req.validatedData;
   const user = await getUserByEmail(email, { Businesses: true });
   if (!user) {
