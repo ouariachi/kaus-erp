@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node .",
-    "dev": "nodemon --ignore ./test/ .",
+    "dev": "nodemon --ignore ./test/ -L .",
     "test": "vitest",
     "lint": "eslint **/*.js"
   },
