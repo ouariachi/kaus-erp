@@ -19,10 +19,11 @@ if [ ! -d "$LOGS_DIR" ]; then
   mkdir -p "$LOGS_DIR"
 fi
 
-LOG_FILE="$LOGS_DIR/deletions-$DATE.log"
 
 RETENTION_DAYS=30
 TODAY=$(date +"%Y%m%d")
+
+LOG_FILE="$LOGS_DIR/deletions-$TODAY.log"
 
 if [ -z "$PGDATABASE" ]; then
   echo "Falta la variable de entorno PGDATABASE" | tee -a "$LOG_FILE" > /dev/null
