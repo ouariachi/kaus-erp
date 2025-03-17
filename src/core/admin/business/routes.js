@@ -13,6 +13,8 @@ import { updateBusinessStatusAccessMiddleware, updateBusinessStatusExistsMiddlew
 import { updateBusinessStatusController } from "./controllers/updateBusinessStatusController.js";
 import { deleteBusinessController } from "./controllers/deleteBusinessController.js";
 import { deleteBusinessAccessMiddleware, deleteBusinessExistsMiddleware } from "./middlewares/deleteBusinessMiddlewares.js";
+import { updateBusinessUserExistsMiddleware, updateBusinessUserValidationDataMiddleware } from "./middlewares/updateBusinessUserMiddlewares.js";
+import { updateBusinessUserController } from "./controllers/updateBusinessUserController.js";
 
 const adminBusinessRouter = Router();
 
@@ -69,7 +71,11 @@ adminBusinessRouter.post("/:id/users",
 adminBusinessRouter.get("/:id/users/:userId", getBusinessUserController);
 
 // Update a user
-// TODO: Implement update user
+adminBusinessRouter.patch("/:id/users/:userId",
+  updateBusinessUserValidationDataMiddleware,
+  updateBusinessUserExistsMiddleware,
+  updateBusinessUserController
+);
 
 // Delete a user
 // TODO: Implement delete user
