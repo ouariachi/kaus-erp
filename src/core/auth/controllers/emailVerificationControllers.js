@@ -45,7 +45,7 @@ export async function resendEmailVerificationController(req, res) {
     return res.status(400).json({ message: "Invalid request" });
   }
 
-  const user = await getUserByEmail(email, { emailVerificationToken: true });
+  const user = await getUserByEmail(email, { EmailVerificationToken: true });
   if (!user) {
     return res.status(400).json({ message: "Invalid email" });
   }
@@ -54,12 +54,12 @@ export async function resendEmailVerificationController(req, res) {
     return res.status(400).json({ message: "Email already verified" });
   }
 
-  if (user.emailVerificationToken.length === 0) {
+  if (user.EmailVerificationToken.length === 0) {
     await sendEmailVerificationToken(user.email, user.firstname);
     return res.status(200).json({ message: "Email verification token sent successfully" });
   }
 
-  const token = user.emailVerificationToken[0];
+  const token = user.EmailVerificationToken[0];
 
   if (token.createdAt.getTime() + EXPIRATION_TIME < Date.now()) {
     await deleteEmailVerificationToken(token.token);
