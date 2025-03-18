@@ -32,8 +32,13 @@ export async function updateBusinessUserExistsMiddleware(req, res, next) {
     return res.status(400).json({ message: "Business does not exist" });
   }
 
-  if (!(await getBusinessUserById(req.userId))) {
-    return res.status(400).json({ message: "Business user does not exist" });
+  const businessUser = await getBusinessUserById(req.userId);
+  if (!businessUser) {
+    return res.status(404).json({ message: "Business user does not exist" });
+  }
+
+  if (businessUser.businessId !== req.businessId) {
+    return res.status(400).json({ message: "Business user does not belong to this business" });
   }
   
   next();
