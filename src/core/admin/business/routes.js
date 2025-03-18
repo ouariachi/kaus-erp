@@ -15,6 +15,8 @@ import { deleteBusinessController } from "./controllers/deleteBusinessController
 import { deleteBusinessAccessMiddleware, deleteBusinessExistsMiddleware } from "./middlewares/deleteBusinessMiddlewares.js";
 import { updateBusinessUserExistsMiddleware, updateBusinessUserValidationDataMiddleware } from "./middlewares/updateBusinessUserMiddlewares.js";
 import { updateBusinessUserController } from "./controllers/updateBusinessUserController.js";
+import { deleteBusinessUserExistsMiddleware } from "./middlewares/deleteBusinessUserMiddlewares.js";
+import { deleteBusinessUserController } from "./controllers/deleteBusinessUserController.js";
 
 const adminBusinessRouter = Router();
 
@@ -78,6 +80,9 @@ adminBusinessRouter.patch("/:id/users/:userId",
 );
 
 // Delete a user
-// TODO: Implement delete user
+adminBusinessRouter.delete("/:id/users/:userId", 
+  deleteBusinessUserExistsMiddleware, 
+  deleteBusinessUserController
+);
 
 export default adminBusinessRouter;
